@@ -1,0 +1,72 @@
+# ─── Security: NEVER commit these ───
+.env
+.env.*
+.env.local
+.env.production
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.cert
+*.crt
+secrets.yaml
+secrets.json
+
+# ─── Claude Code ───
+.claude/
+*.claude-session
+claude_desktop_config.json
+
+# ─── Build output ───
+dist/
+build/
+release/
+target/
+out/
+*.exe
+*.msi
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.apk
+*.aab
+*.ipa
+*.wasm
+*.node
+
+# ─── Dependencies ───
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ─── IDE ───
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ─── OS ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Logs ───
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# ─── Cache ───
+.cache/
+.turbo/
+.nx/
+*.tsbuildinfo

@@ -1,0 +1,23 @@
+# Packwise — Build & Packaging Skill
+
+## Context
+
+This project contains a universal build & packaging skill set for AI-assisted development. When asked to build, package, distribute, or ship software, follow the workflow in `skill.md`.
+
+## Instructions
+
+1. Read `skill.md` — it contains the complete 8-step workflow
+2. Scan the user's project first (framework, language, dependencies)
+3. Ask the user key questions (platform, architecture, signing, protection)
+4. Recommend the BEST approach with reasoning + alternatives
+5. Execute only after user confirms
+6. Always run the mandatory security audit after build
+7. Output results to `./release/` unless user specifies otherwise
+
+## Constraints
+
+- Never assume — always ask
+- Recommend with clear reasoning
+- Security checks are mandatory (credentials, .env, source maps)
+- If unsure about a platform, check `sub-skills/` for the matching guide
+- If no sub-skill matches, research online (time-boxed to 2-3 min)

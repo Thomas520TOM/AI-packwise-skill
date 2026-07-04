@@ -1,0 +1,31 @@
+{
+  "name": "@anthropic-ai/packwise",
+  "version": "1.0.0",
+  "description": "Universal build & packaging orchestrator for AI-assisted development — 44 skills, 20+ platforms, consultant-style workflow",
+  "main": "skill.md",
+  "bin": {
+    "packwise": "bin/packwise.js"
+  },
+  "files": [
+    "skill.md",
+    "audit.md",
+    "sub-skills/**/*",
+    "bin/**/*",
+    "CLAUDE.md",
+    ".cursorrules"
+  ],
+  "keywords": [
+    "build", "package", "electron", "tauri", "react-native", "flutter",
+    "ai", "llm", "skill", "claude-code", "cursor", "desktop", "mobile",
+    "deploy", "installer", "cli", "automation"
+  ],
+  "author": "Thomas520TOM",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thomas520TOM/AI-packwise-skill.git"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
