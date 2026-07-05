@@ -34,17 +34,16 @@
 
 ## Why This Exists
 
-Packaging software is where most AI coding assistants fail. They suggest outdated flags, forget platform-specific quirks, skip credential scans, and have no concept of a proper build plan. **Packwise fixes this** by turning your AI into a structured build consultant with real domain knowledge.
+Most AI coding assistants treat build as an afterthought — they suggest a command and hope for the best. **Packwise** gives your AI a real packaging workflow.
 
 <div align="center">
 
 | Without Packwise | With Packwise |
 |:---:|:---:|
-| `"Try running npm run build"` | Scans project → identifies framework/version → recommends with reasoning |
+| `npm run build` and pray | Scans project, identifies framework/version, recommends with reasoning |
 | No security checks | Mandatory credential scan, `.env` detection, source map cleanup |
-| Guesses platform differences | Asks target platform, arch, signing, output — all upfront |
-| One-shot answer | Full workflow: recommend → alternatives → confirm → execute |
-| No post-build verification | Mandatory audit: credentials, integrity, file structure |
+| Ignores platform specifics | Asks target platform, arch, signing, output upfront |
+| One-shot, no follow-up | Recommend → confirm → execute, with alternatives |
 
 </div>
 
@@ -52,7 +51,7 @@ Packaging software is where most AI coding assistants fail. They suggest outdate
 
 ## How It Works
 
-Packwise runs a **consultant-style 8-step workflow** — the same process a human build engineer would follow:
+An 8-step consultant workflow — the same process a human build engineer follows:
 
 | Step | Action | Result |
 |:----:|--------|--------|
@@ -69,17 +68,17 @@ Packwise runs a **consultant-style 8-step workflow** — the same process a huma
 
 ## Key Advantages
 
-Packwise is more than a build script. It's a **complete packaging intelligence layer** that works across your entire stack.
+What makes Packwise different from a generic build command:
 
 | Capability | What It Means |
 |------------|---------------|
-| **44 sub-skills** | Deep, platform-specific knowledge — not generic advice |
+| **44 sub-skills** | Platform-specific knowledge, not generic advice |
 | **20+ platforms** | Desktop, mobile, web, backend, AI/ML, CLI, plugins, embedded, cloud |
 | **Mandatory security** | Every build ends with a credential and integrity audit |
-| **Consultant workflow** | Recommend → confirm → execute, never auto-builds without approval |
+| **Consultant workflow** | Never auto-builds — recommends, confirms, then executes |
 | **Version-verified** | Build commands checked against npm, PyPI, crates.io, official registries |
-| **CI/CD templates** | GitHub Actions and GitLab CI configs included in every sub-skill |
-| **Cross-tool support** | Works with Claude Code, OpenCode, Cursor, Codex CLI, OpenClaw, WorkBuddy, Trae, Hermes, GitHub Copilot, and more |
+| **Selective install** | Install only the skills you need via `--only` |
+| **11 agents** | Claude Code, Cursor, OpenCode, Copilot, and 7 more |
 
 ---
 
