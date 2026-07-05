@@ -28,7 +28,7 @@
 
 ---
 
-**Packwise** is a universal build & packaging skill for AI-assisted development.  Instead of your AI guessing at build commands and hoping for the best, Packwise gives it a structured, consultant-grade workflow that scans your project, asks the right questions, recommends solutions with reasoning, and executes builds with mandatory security audits — across 20+ platforms and 40+ frameworks.
+**Packwise** is a universal build & packaging skill pack that gives your AI a structured, consultant-grade workflow — scanning, recommending, and executing builds with mandatory security audits across 20+ platforms.
 
 ---
 
