@@ -113,6 +113,14 @@ git clone https://github.com/Thomas520TOM/packwise-skills.git .claude/skills/pac
 </details>
 
 <details>
+<summary><strong>Curl one-liner</strong> — install with a single command</summary>
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash
+```
+</details>
+
+<details>
 <summary><strong>Other AI tools</strong> — OpenCode, Cursor, Hermes, Codex CLI, WorkBuddy</summary>
 
 **OpenCode** — copy to `.opencode/skills/packwise/` and reference in prompts:
