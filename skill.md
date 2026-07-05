@@ -137,7 +137,36 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 
 ---
 
-#### Part B: Key Questions
+#### Part B: Build Overview Confirmation
+
+> After scanning, the FIRST thing the LLM MUST do is present a build overview and ask the user to confirm, correct, or supplement before asking any other questions. This ensures the LLM correctly understood the project scope.
+
+```
+📋 Build Overview / 构建总览
+
+Project type / 项目类型:    [detected type / 检测到的类型]
+Framework / 框架:          [detected framework / 检测到的框架]
+Language / 语言:           [detected language / 检测到的语言]
+Entry point / 入口文件:     [detected entry / 检测到的入口]
+Build config / 构建配置:    [detected config files / 检测到的配置文件]
+Dependencies / 依赖:       [key dependencies / 关键依赖]
+Output expected / 预期产出: [e.g., desktop installer / 例如：桌面安装包]
+
+Is this correct? Any files to add or exclude?
+以上信息是否正确？是否需要添加或排除某些文件？
+```
+
+Use `AskUserQuestion` tool with the following options:
+- ✅ **Correct, proceed / 正确，继续**
+- 📝 **Need to add files / 需要添加文件** → after selecting, type the files in chat
+- 🗑️ **Need to exclude files / 需要排除文件** → after selecting, type the files in chat
+- 🔄 **Need to correct / 需要修正** → after selecting, describe the corrections in chat
+
+> Only proceed to Q1 after the user confirms the build overview. If the user requests changes, update the overview and re-confirm.
+
+---
+
+#### Part C: Key Questions
 
 **Q1. Who are the target users? / 目标用户是谁？**
 - 1. ⭐ General consumers → One-click installer (NSIS/DMG/APK) / 普通消费者 → 一键安装包
