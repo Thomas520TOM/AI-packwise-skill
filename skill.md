@@ -92,7 +92,10 @@ package/
 
 After scanning, the AI reports findings and asks questions **in one interactive session**. Do NOT split across multiple steps.
 
-**Format**: Present each question as a numbered list. Mark the **⭐ Recommended** option with reasoning. Let the user reply with numbers (e.g., "1,2,4,3,1,2") or answer conversationally. If the user says "skip", use the recommended option.
+**Format**: Use the `AskUserQuestion` tool to present questions as interactive popups with selectable options. Group 3-4 questions per call. Mark the recommended option first. If the user says "skip", use the recommended option.
+
+> **Important**: Do NOT output all questions as text in the chat. Use `AskUserQuestion` for a clean, professional UX.
+> For free-text questions (e.g., Q4: app name/version), ask in chat text after the `AskUserQuestion` calls are complete.
 
 ---
 
@@ -212,18 +215,11 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 - 1. ⭐ Yes
 - 2. No
 
-**Q10. Budget / team capability?**
-- 1. ⭐ Zero budget, individual developer
-- 2. Has Apple Developer account ($99/year)
-- 3. Has code signing certificate
-- 4. Team has Rust experience
-- 5. Team has only frontend experience
-
-**Q11. Output location?**
+**Q10. Output location?**
 - 1. ⭐ `./release/` (default)
 - 2. Custom path
 
-**Q12. Any special requirements?**
+**Q11. Any special requirements?**
 - (Open-ended: custom protocol, system tray, multi-window, offline-first, etc.)
 
 ---
@@ -379,18 +375,11 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 
 Before presenting the modification plan, the LLM MUST ask the following questions:
 
-1. **Output location** — Where should the final build artifacts be placed?
-   - Default: `./release/` (or `./dist/` depending on framework)
-   - Let the user specify a custom path if needed
-
-2. **Encryption / Protection** — Does the user want to protect the build output?
-   - Options may include: ASAR encryption (Electron), code obfuscation, binary stripping, upx compression
-   - If the user wants protection, add the relevant tools/config to the modification plan
-   - If not needed, skip and proceed
-
-3. **Logo / Icon** — Ask the user to provide the logo file path
+1. **Logo / Icon** — Ask the user to provide the logo file path
    - Also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon?"*
    - If no logo is provided, warn that default/placeholder icons will be used
+
+> **Note**: Output location (Q10) and encryption/protection level (Q6) were already confirmed in Step 2. Use those answers directly — do NOT ask again.
 
 #### 6b. Present Modification Plan
 
@@ -399,14 +388,10 @@ Present ALL required changes to the user in a structured checklist **before maki
 ```
 📋 Pre-Build Preparation — [Framework] [Platform]
 
-Before proceeding, please confirm:
+App icon: Please provide the logo file path
+          → Crop and round corners for installer icon? (yes/no)
 
-  Output location:  ./release/ (default) or specify a custom path?
-  Encryption:       Do you need build output protection? (ASAR, obfuscation, etc.)
-  App icon:         Please provide the logo file path
-                    → Crop and round corners for installer icon? (yes/no)
-
-The following config changes are also needed:
+The following config changes are needed:
 
  [1] Add file: electron-builder.yml
      → Configures NSIS installer, code signing, auto-update
@@ -415,7 +400,7 @@ The following config changes are also needed:
  [3] Modify: package.json → add "build" script
      → "build": "electron-builder --win --mac"
 
- Reply with your preferences above and numbers to approve config changes,
+ Reply with your logo path and numbers to approve config changes,
  or tell me which to skip.
 ```
 
