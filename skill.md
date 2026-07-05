@@ -197,26 +197,38 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 | **Merged** | `MyApp-v1.0.0-windows.exe` (x64+ARM64) + `MyApp-v1.0.0-macos-universal.dmg` | 2 files |
 
 - **Windows (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate — one `.exe` per architecture, user downloads matching version
+  - 1. ⭐ Separate — select which architectures to output (multi-select):
+    - x64
+    - ARM64
   - 2. Merged — single installer that supports both architectures
 - **macOS (if Universal Binary NOT selected in Q3b)?**
-  - 1. ⭐ Separate — one `.dmg` per architecture
+  - 1. ⭐ Separate — select which to output (multi-select):
+    - x64 (Intel)
+    - ARM64 (Apple Silicon)
   - 2. Merged — single `.dmg`
 - **Linux (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate — one `.deb` / `.AppImage` per architecture
+  - 1. ⭐ Separate — select which to output (multi-select):
+    - x64
+    - ARM64
   - 2. Merged — single package
+- **Android (if multiple architectures selected in Q3b)?**
+  - 1. ⭐ Separate — select which to output (multi-select):
+    - ARM64 (v8a)
+    - ARMv7
+    - Universal
+  - 2. Single APK — all architectures merged
 
 > **Naming convention** (auto-applied for separate output):
 > `[AppName]-v[Version]-[OS]-[Arch].[ext]`
 > Examples: `MyApp-v1.0.0-windows-x64.exe`, `MyApp-v1.0.0-macos-arm64.dmg`, `MyApp-v1.0.0-linux-x64.AppImage`
 
-> **After user selects, show final output list** before proceeding:
+> **After user selects, show final output list** — only include architectures the user actually chose:
 > ```
-> 📦 Build output (3 files):
+> 📦 Build output (2 files):
 >   1. MyApp-v1.0.0-windows-x64.exe     (Windows x64)
->   2. MyApp-v1.0.0-windows-arm64.exe   (Windows ARM64)
->   3. MyApp-v1.0.0-macos-universal.dmg (macOS Universal)
+>   2. MyApp-v1.0.0-macos-arm64.dmg     (macOS ARM64)
 > ```
+> If user deselects an architecture, it is excluded from the build entirely.
 
 **Q3d. Minimum OS version?**
 
