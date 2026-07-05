@@ -174,6 +174,13 @@ npx packwise-skills update
 
 This automatically detects your installation method and updates to the latest version.
 
+If the update doesn't seem to take effect, clear the npm cache first:
+
+```bash
+npm cache clean --force
+npm install -g packwise-skills@latest
+```
+
 ---
 
 ### Selective Installation
