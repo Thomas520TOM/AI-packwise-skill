@@ -92,14 +92,19 @@ package/
 
 After scanning, the AI reports findings and asks questions **in one interactive session**. Do NOT split across multiple steps.
 
-**Format**: Use the `AskUserQuestion` tool to present ALL questions as interactive popups with selectable options. Group 3-4 questions per call. Mark the recommended option first. If the user says "skip", use the recommended option.
+**Format**: Every question MUST be presented via `AskUserQuestion` (or equivalent interactive tool on other platforms). Group 3-4 questions per call.
 
-> **Important**: Do NOT output questions as text in the chat. ALL questions MUST use interactive selection tools:
+**Option structure for each question:**
+- ⭐ **Default (LLM auto-detected)** — the value the LLM detected from scanning (fallback if tool fails)
+- Other preset options as applicable
+- **Custom / 自定义** — user selects this, then types their answer in chat (the chat IS the input field)
+
+> **Important**: ALL questions MUST use interactive selection tools first:
 > - **Claude Code**: Use `AskUserQuestion` tool
 > - **Cursor / OpenCode / OpenClaw / Trae**: Use equivalent selection UI or structured option prompts
 > - **Other agents**: Present questions as numbered options, never as open-ended text dumps
 >
-> For "Custom" options, after the user selects it, they type their answer in chat — this is the only text input allowed.
+> The "default" option exists as a fallback in case the interactive tool cannot be invoked. The "Custom" option triggers text input in chat — this is the only text input allowed.
 
 ---
 
