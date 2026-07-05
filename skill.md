@@ -748,7 +748,7 @@ Present similar products and their packaging approaches to help the user decide.
 
 # Phase 5: Recommendation & Confirmation
 
-> **Note**: Platform decision (Q5), info collection (Q6-Q14), and all user-facing questions are now handled in **Step 2: Unified User Intake** above. This phase focuses ONLY on presenting recommendations after the intake is complete.
+> **Note**: All user-facing questions (Q1-Q10) are now handled in **Step 2: Intake** above. This phase focuses ONLY on presenting recommendations after the intake is complete.
 
 Based on the user's answers in Step 2, present:
 
