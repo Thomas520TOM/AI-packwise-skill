@@ -1,6 +1,6 @@
 {
   "name": "packwise-skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Universal build & packaging orchestrator for AI-assisted development — 44 skills, 20+ platforms, consultant-style workflow",
   "main": "skill.md",
   "bin": {
@@ -12,6 +12,7 @@
     "sub-skills/**/*",
     "bin/**/*",
     "CLAUDE.md",
+    "install.sh",
     ".cursorrules"
   ],
   "keywords": [
