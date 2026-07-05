@@ -95,16 +95,11 @@ After scanning, the AI reports findings and asks questions **in one interactive 
 **Format**: Every question MUST be presented via `AskUserQuestion` (or equivalent interactive tool on other platforms). Group 3-4 questions per call.
 
 **Option structure for each question:**
-- ⭐ **Default (LLM auto-detected)** — the value the LLM detected from scanning (fallback if tool fails)
+- ⭐ **Default (LLM auto-detected)** — the value the LLM detected from scanning
 - Other preset options as applicable
-- **Custom / 自定义** — user selects this, then types their answer in chat (the chat IS the input field)
+- **Custom / 自定义** — opens an input field in the tool for the user to type directly
 
-> **Important**: ALL questions MUST use interactive selection tools first:
-> - **Claude Code**: Use `AskUserQuestion` tool
-> - **Cursor / OpenCode / OpenClaw / Trae**: Use equivalent selection UI or structured option prompts
-> - **Other agents**: Present questions as numbered options, never as open-ended text dumps
->
-> The "default" option exists as a fallback in case the interactive tool cannot be invoked. The "Custom" option triggers text input in chat — this is the only text input allowed.
+> **Important**: ALL questions MUST use `AskUserQuestion` (or equivalent interactive tool on other platforms). The tool provides both selectable options AND a text input field for custom answers. Never fall back to plain chat text for questions.
 
 ---
 
@@ -167,9 +162,9 @@ Is this correct? Any files to add or exclude?
 
 Use `AskUserQuestion` tool with the following options:
 - ✅ **Correct, proceed / 正确，继续**
-- 📝 **Need to add files / 需要添加文件** → after selecting, type the files in chat
-- 🗑️ **Need to exclude files / 需要排除文件** → after selecting, type the files in chat
-- 🔄 **Need to correct / 需要修正** → after selecting, describe the corrections in chat
+- 📝 **Need to add files / 需要添加文件** → after selecting, type the files in tool / 在工具中输入文件
+- 🗑️ **Need to exclude files / 需要排除文件** → after selecting, type the files in tool / 在工具中输入文件
+- 🔄 **Need to correct / 需要修正** → after selecting, describe the corrections in tool / 在工具中描述修正内容
 
 > Only proceed to Q1 after the user confirms the build overview. If the user requests changes, update the overview and re-confirm.
 
@@ -278,45 +273,45 @@ Use `AskUserQuestion` tool with the following options:
 - **Windows:**
   - 1. ⭐ Windows 10 (most common, Electron 31+ requires) / 最常见，Electron 31+ 要求
   - 2. Windows 11
-  - 3. Custom / 自定义 → type version in chat / 在聊天中输入版本号
+  - 3. Custom / 自定义 → type version in tool / 在工具中输入版本号
 - **macOS:**
   - 1. ⭐ macOS 10.15 (Catalina, Electron 31 default) / Electron 31 默认
   - 2. macOS 12 (Monterey)
-  - 3. Custom / 自定义 → type version in chat / 在聊天中输入版本号
+  - 3. Custom / 自定义 → type version in tool / 在工具中输入版本号
 - **Linux:**
   - 1. ⭐ No specific requirement / 无特殊要求
-  - 2. Custom / 自定义 → type requirement in chat / 在聊天中输入要求
+  - 2. Custom / 自定义 → type requirement in tool / 在工具中输入要求
 
 **Q4. App name? / 应用名称？**
 - 1. ⭐ [detected folder name] / [检测到的文件夹名称]
-- 2. Custom / 自定义 → type name in chat / 在聊天中输入名称
+- 2. Custom / 自定义 → type name in tool / 在工具中输入名称
 
 **Q4b. Version? / 版本号？**
 - 1. ⭐ [detected from package.json or default 1.0.0] / [从 package.json 检测或默认 1.0.0]
-- 2. Custom / 自定义 → type version in chat / 在聊天中输入版本号
+- 2. Custom / 自定义 → type version in tool / 在工具中输入版本号
 
 **Q4c. Copyright holder? / 版权持有者？**
 - 1. ⭐ [detected from git config user.name] / [从 git 配置的用户名检测]
-- 2. Custom / 自定义 → type name in chat / 在聊天中输入名称
+- 2. Custom / 自定义 → type name in tool / 在工具中输入名称
 
 **Q4d. Language / Localization? / 语言 / 本地化？**
 - 1. ⭐ English only / 仅英文（默认）
 - 2. Chinese (Simplified) / 中文（简体）
 - 3. Chinese (Traditional) / 中文（繁体）
 - 4. Multi-language (English + Chinese) / 多语言（英文 + 中文）
-- 5. Custom / 自定义 → type languages in chat / 在聊天中输入语言
+- 5. Custom / 自定义 → type languages in tool / 在工具中输入语言
 
 **Q4e. License file? / 许可证文件？**
 - 1. ⭐ [detected from LICENSE file, e.g., MIT] / [从 LICENSE 文件检测，如 MIT]
 - 2. Apache 2.0
 - 3. GPL v3
 - 4. Proprietary / Commercial / 商业 / 专有
-- 5. Custom / 自定义 → type license in chat / 在聊天中输入许可证类型
+- 5. Custom / 自定义 → type license in tool / 在工具中输入许可证类型
 - 6. None — do not include license in package / 无 — 不在安装包中包含许可证
 
 **Q4f. Installer UI customization? / 安装界面自定义？**
 - 1. ⭐ Default theme / 默认主题（简洁标准外观）
-- 2. Custom branding / 自定义品牌 → describe in chat / 在聊天中描述需求（如自定义欢迎页、背景图、文字颜色等）
+- 2. Custom branding / 自定义品牌 → describe in tool / 在工具中描述需求（如自定义欢迎页、背景图、文字颜色等）
 - 3. Minimal / unbranded / 极简无品牌 — 无 logo、无自定义文字，纯功能性安装器
 
 **Q6. Source code protection (anti-reverse-engineering)? / 源码保护（防反编译）？**
@@ -348,7 +343,7 @@ Use `AskUserQuestion` tool with the following options:
 
 **Q10. Any special requirements? / 特殊需求？**
 - 1. ⭐ None / 无
-- 2. Custom / 自定义 → describe in chat / 在聊天中描述需求
+- 2. Custom / 自定义 → describe in tool / 在工具中描述需求
 
 ---
 
@@ -504,13 +499,13 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 Before presenting the modification plan, the LLM MUST ask the following questions using `AskUserQuestion` (or equivalent interactive tool on other platforms):
 
 **Logo / Icon / Logo 图标:**
-- 1. ⭐ I have a logo / 我有 logo → type file path in chat / 在聊天中输入文件路径
+- 1. ⭐ I have a logo / 我有 logo → type file path in tool / 在工具中输入文件路径
 - 2. Need to generate / 需要生成 → Recommend tool based on platform / 根据平台推荐工具
 - 3. Use default / 使用默认 → Not recommended for production / 不建议用于正式发布
 
 **Output location / 输出位置:**
 - 1. ⭐ `./release/` (default / 默认)
-- 2. Custom path / 自定义路径 → type path in chat / 在聊天中输入路径
+- 2. Custom path / 自定义路径 → type path in tool / 在工具中输入路径
 
 > When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
 > 当多架构分开输出时（Q3c），文件名自动包含平台和架构信息。
@@ -546,9 +541,9 @@ Config changes needed / 需要的配置变更:
 Then use `AskUserQuestion`:
 
 - ✅ **Approve all / 全部同意**
-- ☑️ **Approve selectively / 选择性同意** → after selecting, type the numbers in chat (e.g., "1,3")
-- ➕ **Need to add changes / 需要补充修改** → after selecting, describe the additional changes in chat
-- ❌ **Reject all / 全部拒绝** → after selecting, explain what to change in chat
+- ☑️ **Approve selectively / 选择性同意** → type the numbers in tool / 在工具中输入编号 (e.g., "1,3")
+- ➕ **Need to add changes / 需要补充修改** → describe the additional changes in tool / 在工具中描述补充内容
+- ❌ **Reject all / 全部拒绝** → explain what to change in tool / 在工具中说明需要修改的内容
 
 > Only apply changes the user explicitly approved. If user adds new changes, append them to the plan and re-confirm.
 
