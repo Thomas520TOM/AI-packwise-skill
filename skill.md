@@ -92,10 +92,14 @@ package/
 
 After scanning, the AI reports findings and asks questions **in one interactive session**. Do NOT split across multiple steps.
 
-**Format**: Use the `AskUserQuestion` tool to present questions as interactive popups with selectable options. Group 3-4 questions per call. Mark the recommended option first. If the user says "skip", use the recommended option.
+**Format**: Use the `AskUserQuestion` tool to present ALL questions as interactive popups with selectable options. Group 3-4 questions per call. Mark the recommended option first. If the user says "skip", use the recommended option.
 
-> **Important**: Do NOT output all questions as text in the chat. Use `AskUserQuestion` for a clean, professional UX.
-> For free-text questions (e.g., Q4: app name/version), ask in chat text after the `AskUserQuestion` calls are complete.
+> **Important**: Do NOT output questions as text in the chat. ALL questions MUST use interactive selection tools:
+> - **Claude Code**: Use `AskUserQuestion` tool
+> - **Cursor / OpenCode / OpenClaw / Trae**: Use equivalent selection UI or structured option prompts
+> - **Other agents**: Present questions as numbered options, never as open-ended text dumps
+>
+> For "Custom" options, after the user selects it, they type their answer in chat — this is the only text input allowed.
 
 ---
 
@@ -493,19 +497,27 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 
 #### 6b. Ask User Preferences
 
-Before presenting the modification plan, the LLM MUST ask the following questions:
+Before presenting the modification plan, the LLM MUST ask the following questions using `AskUserQuestion` (or equivalent interactive tool on other platforms):
 
-1. **Logo / Icon / Logo 图标** — Ask the user to provide the logo file path
-   - Also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon? / 是否需要智能裁切圆角？"*
-   - If no logo is provided, warn that default/placeholder icons will be used
+**Logo / Icon / Logo 图标:**
+- 1. ⭐ I have a logo / 我有 logo → after selecting, type file path in chat / 选择后在聊天中输入文件路径
+- 2. Need to generate / 需要生成 → Recommend tool based on platform / 根据平台推荐工具
+- 3. Use default / 使用默认 → Not recommended for production / 不建议用于正式发布
 
-2. **Output location / 输出位置** — Where should the final build artifacts be placed?
-   - Default: `./release/` (or `./dist/` depending on framework / 默认输出目录)
-   - Let the user specify a custom path if needed
-   - When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+**Output location / 输出位置:**
+- 1. ⭐ `./release/` (default / 默认)
+- 2. Custom path / 自定义路径 → after selecting, type in chat / 选择后在聊天中输入
+
+> When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+> 当多架构分开输出时（Q3c），文件名自动包含平台和架构信息。
 
 > **Note**: Encryption/protection level (Q6) was already confirmed in Step 2. Use that answer directly — do NOT ask again.
 > **注意**：加密/保护等级（Q6）已在 Step 2 确认，直接使用，不要重复询问。
+
+**After logo path is provided / 提供 logo 路径后，追问:**
+- 1. ⭐ Crop and round corners for installer icon / 裁切圆角用于安装包图标
+- 2. Use original as-is / 使用原图不处理
+- 3. Skip / 跳过
 
 #### 6b. Present Modification Plan
 
