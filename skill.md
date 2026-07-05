@@ -92,14 +92,18 @@ package/
 
 After scanning, the AI reports findings and asks questions **in one interactive session**. Do NOT split across multiple steps.
 
-**Format**: Every question MUST be presented via `AskUserQuestion` (or equivalent interactive tool on other platforms). Group 3-4 questions per call.
+**Format**: Every question MUST be presented via an interactive selection mechanism. Group 3-4 questions per call when possible.
 
-**Option structure for each question:**
-- ⭐ **Default (LLM auto-detected)** — the value the LLM detected from scanning
-- Other preset options as applicable
-- **Custom / 自定义** — opens an input field in the tool for the user to type directly
+**Agent-specific interaction patterns:**
+- **Claude Code**: Use `AskUserQuestion` tool (popup with selectable options + input field)
+- **Cursor**: Present questions as numbered options in chat; user replies with numbers
+- **OpenCode / OpenClaw / Trae**: Use structured option lists in chat; user replies with numbers
+- **Codex CLI**: Present questions as numbered options; user replies with numbers
+- **GitHub Copilot**: Present questions as numbered options; user replies with numbers
+- **Hermes / LangChain**: Present questions as numbered options; user replies with numbers
+- **WorkBuddy / Windsurf / Zed AI**: Present questions as numbered options; user replies with numbers
 
-> **Important**: ALL questions MUST use `AskUserQuestion` (or equivalent interactive tool on other platforms). The tool provides both selectable options AND a text input field for custom answers. Never fall back to plain chat text for questions.
+> **Rule**: Every question MUST offer selectable options (never open-ended text). Include a default option (LLM auto-detected value) and a custom option for free-text input. The LLM should never ask questions without providing choices.
 
 ---
 
@@ -160,11 +164,12 @@ Is this correct? Any files to add or exclude?
 以上信息是否正确？是否需要添加或排除某些文件？
 ```
 
-Use `AskUserQuestion` tool with the following options:
+Present the build overview and options using the agent's interactive selection mechanism (see format guidelines above):
+
 - ✅ **Correct, proceed / 正确，继续**
-- 📝 **Need to add files / 需要添加文件** → after selecting, type the files in tool / 在工具中输入文件
-- 🗑️ **Need to exclude files / 需要排除文件** → after selecting, type the files in tool / 在工具中输入文件
-- 🔄 **Need to correct / 需要修正** → after selecting, describe the corrections in tool / 在工具中描述修正内容
+- 📝 **Need to add files / 需要添加文件** → type the files after selecting
+- 🗑️ **Need to exclude files / 需要排除文件** → type the files after selecting
+- 🔄 **Need to correct / 需要修正** → describe the corrections after selecting
 
 > Only proceed to Q1 after the user confirms the build overview. If the user requests changes, update the overview and re-confirm.
 
@@ -227,8 +232,8 @@ Use `AskUserQuestion` tool with the following options:
 
 **Q3d. Architecture output mode? / 架构输出模式？** (only ask when user selected 2+ architectures for a platform in Q3c / 仅当用户在 Q3c 中为某平台选择了 2 个以上架构时才询问)
 
-> **Interaction flow / 交互流程**: First ask "Separate or Merged?" per platform. If user selects "Separate", follow up with a second AskUserQuestion to select which specific architectures to output. Do NOT try to combine both questions into one call.
-> 先按平台询问"分开还是合并？"。如果用户选择"分开"，再用第二个 AskUserQuestion 选择具体输出哪些架构。不要把两个问题合并在一次调用中。
+> **Interaction flow / 交互流程**: First ask "Separate or Merged?" per platform. If user selects "Separate", follow up with a second question to select which specific architectures to output. Do NOT try to combine both questions into one call.
+> 先按平台询问"分开还是合并？"。如果用户选择"分开"，再用第二个问题选择具体输出哪些架构。不要把两个问题合并在一次调用中。
 
 > This determines how multi-architecture builds are packaged. Based on your Q3c selections, here is what will be output:
 > 决定多架构构建如何打包。根据您在 Q3c 的选择，以下是输出预览：
@@ -506,7 +511,7 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 
 #### 6b. Ask User Preferences
 
-Before presenting the modification plan, the LLM MUST ask the following questions using `AskUserQuestion` (or equivalent interactive tool on other platforms):
+Before presenting the modification plan, the LLM MUST ask the following questions using the agent's interactive selection mechanism (see format guidelines above):
 
 **Logo / Icon / Logo 图标:**
 - 1. ⭐ I have a logo / 我有 logo → type file path in tool / 在工具中输入文件路径
@@ -530,7 +535,7 @@ Before presenting the modification plan, the LLM MUST ask the following question
 
 #### 6c. Present Modification Plan
 
-Present ALL required changes to the user in a structured checklist **before making any changes**, then use `AskUserQuestion` for confirmation:
+Present ALL required changes to the user in a structured checklist **before making any changes**, then use the agent's interactive selection mechanism for confirmation:
 
 ```
 📋 Pre-Build Preparation / 构建前准备 — [Framework] [Platform]
@@ -548,7 +553,7 @@ Config changes needed / 需要的配置变更:
      → "build": "electron-builder --win --mac"
 ```
 
-Then use `AskUserQuestion`:
+Then use the agent's interactive selection mechanism:
 
 - ✅ **Approve all / 全部同意**
 - ☑️ **Approve selectively / 选择性同意** → type the numbers in tool / 在工具中输入编号 (e.g., "1,3")
