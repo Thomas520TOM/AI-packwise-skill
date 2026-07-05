@@ -130,25 +130,31 @@ Then invoke in your AI agent:
 
 Only need certain platforms? Use `--only` to install specific sub-skills. Core files (`skill.md`, `audit.md`, `CLAUDE.md`) are always installed.
 
+**By category:**
 ```bash
-# Desktop + Mobile only
 npx packwise-skills --only desktop,mobile
-
-# Backend + Cloud only
 npx packwise-skills --only backend,cloud
+```
 
-# AI/ML + CLI only
-npx packwise-skills --only ai,cli
+**By specific framework:**
+```bash
+npx packwise-skills --only electron,tauri,react-native
+npx packwise-skills --only docker,kubernetes
+```
+
+**Mix both:**
+```bash
+npx packwise-skills --only electron,mobile
 ```
 
 Works with curl too:
-
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash -s -- --only desktop,mobile
+curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash -s -- --only electron,mobile
 ```
 
-**Available categories:**
-`desktop` `mobile` `web` `backend` `ai` `cli` `plugins` `embedded` `security` `cloud` `cross-platform`
+**Categories:** `desktop` `mobile` `web` `backend` `ai` `cli` `plugins` `embedded` `security` `cloud` `cross-platform`
+
+**Frameworks:** `electron` `tauri` `android` `ios` `react-native` `flutter-mobile` `docker` `kubernetes` `spa` `ssr` and [more](bin/packwise.js)
 
 ---
 

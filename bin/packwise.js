@@ -3,17 +3,15 @@
 /**
  * Packwise CLI — Universal installer for AI agent build skills
  *
- * Detects installed AI agents and copies skill files to the right location.
- *
  * Usage:
- *   npx packwise-skills                        # Auto-detect and install all skills
- *   npx packwise-skills install                # Same as above
- *   npx packwise-skills --only desktop,mobile  # Install only specific sub-skills
- *   npx packwise-skills uninstall              # Remove from all detected agents
- *   npx packwise-skills list                   # Show which agents have skills installed
+ *   npx packwise-skills                              # Install all skills
+ *   npx packwise-skills --only desktop,mobile        # By category
+ *   npx packwise-skills --only electron,react-native # By specific framework
+ *   npx packwise-skills --only electron,mobile       # Mix both
+ *   npx packwise-skills uninstall                    # Remove
+ *   npx packwise-skills list                         # Show installed
  *
- * Available sub-skill categories:
- *   desktop, mobile, web, backend, ai, cli, plugins, embedded, security, cloud, cross-platform
+ * Categories: desktop, mobile, web, backend, ai, cli, plugins, embedded, security, cloud, cross-platform
  */
 
 const fs = require('fs');
@@ -21,7 +19,23 @@ const path = require('path');
 const os = require('os');
 
 const CORE_FILES = ['skill.md', 'audit.md', 'CLAUDE.md'];
-const ALL_CATEGORIES = ['desktop', 'mobile', 'web', 'backend', 'ai', 'cli', 'plugins', 'embedded', 'security', 'cloud', 'cross-platform'];
+
+const CATEGORY_MAP = {
+  desktop:       ['electron', 'tauri', 'native-app', 'web-to-desktop', 'game-dev', 'vr-ar', 'smart-platforms', 'scenarios'],
+  mobile:        ['android', 'ios', 'harmonyos', 'flutter-mobile', 'react-native', 'capacitor', 'wearables'],
+  web:           ['spa', 'ssr', 'pwa', 'serverless-edge', 'monorepo', 'wasm'],
+  backend:       ['node-server', 'python-server', 'go-server', 'rust-backend', 'java-spring', 'php-laravel'],
+  ai:            ['python-ml', 'local-llm'],
+  cli:           ['python-cli', 'sdk-library'],
+  plugins:       ['browser-extension', 'vscode-extension', 'jetbrains-plugin'],
+  embedded:      ['esp32', 'stm32', 'ros', 'car-infotainment'],
+  security:      ['security-tools'],
+  cloud:         ['docker', 'kubernetes', 'ci-cd-pipelines', 'payment-integration'],
+  'cross-platform': ['multiplatform'],
+};
+
+const ALL_CATEGORIES = Object.keys(CATEGORY_MAP);
+const ALL_FRAMEWORKS = Object.values(CATEGORY_MAP).flat();
 const HOME = os.homedir();
 const CWD = process.cwd();
 
@@ -97,18 +111,36 @@ const AGENTS = [
   },
 ];
 
-// Parse --only flag
+// Parse --only flag (supports categories and individual frameworks)
 const onlyIndex = process.argv.indexOf('--only');
-const onlyCategories = onlyIndex !== -1
+const onlyRaw = onlyIndex !== -1
   ? process.argv[onlyIndex + 1]?.split(',').map(c => c.trim().toLowerCase())
   : null;
 
-if (onlyCategories) {
-  const invalid = onlyCategories.filter(c => !ALL_CATEGORIES.includes(c));
+// Resolve to list of frameworks to install
+let onlyFrameworks = null;
+let onlyLabels = [];
+
+if (onlyRaw) {
+  const invalid = onlyRaw.filter(c => !ALL_CATEGORIES.includes(c) && !ALL_FRAMEWORKS.includes(c));
   if (invalid.length) {
-    console.log(`\n  Unknown categories: ${invalid.join(', ')}`);
-    console.log(`  Available: ${ALL_CATEGORIES.join(', ')}\n`);
+    console.log(`\n  Unknown: ${invalid.join(', ')}`);
+    console.log(`\n  Categories:  ${ALL_CATEGORIES.join(', ')}`);
+    console.log(`  Frameworks:  ${ALL_FRAMEWORKS.join(', ')}\n`);
     process.exit(1);
+  }
+
+  onlyFrameworks = new Set();
+  for (const item of onlyRaw) {
+    if (ALL_CATEGORIES.includes(item)) {
+      // Expand category to all its frameworks
+      CATEGORY_MAP[item].forEach(f => onlyFrameworks.add(f));
+      onlyLabels.push(item);
+    } else {
+      // Individual framework
+      onlyFrameworks.add(item);
+      onlyLabels.push(item);
+    }
   }
 }
 
@@ -157,12 +189,18 @@ function installTo(target) {
   // Copy sub-skills
   const subSkillsSrc = path.join(sourceDir, 'sub-skills');
   if (fs.existsSync(subSkillsSrc)) {
-    if (onlyCategories) {
-      // Selective install
-      for (const cat of onlyCategories) {
-        const catSrc = path.join(subSkillsSrc, cat);
-        if (fs.existsSync(catSrc)) {
-          copyDir(catSrc, path.join(target, 'sub-skills', cat));
+    if (onlyFrameworks) {
+      // Selective install by individual framework
+      for (const cat of ALL_CATEGORIES) {
+        for (const fw of CATEGORY_MAP[cat]) {
+          if (onlyFrameworks.has(fw)) {
+            const fwSrc = path.join(subSkillsSrc, cat, fw + '.md');
+            if (fs.existsSync(fwSrc)) {
+              const destDir = path.join(target, 'sub-skills', cat);
+              fs.mkdirSync(destDir, { recursive: true });
+              fs.copyFileSync(fwSrc, path.join(destDir, fw + '.md'));
+            }
+          }
         }
       }
     } else {
@@ -176,8 +214,8 @@ function installTo(target) {
 if (command === 'install' || command === undefined) {
   console.log('\n  Packwise — Universal Build & Packaging Skills\n');
 
-  if (onlyCategories) {
-    console.log(`  Selective install: ${onlyCategories.join(', ')}`);
+  if (onlyFrameworks) {
+    console.log(`  Selective install: ${onlyLabels.join(', ')}`);
     console.log(`  (skill.md, audit.md, CLAUDE.md are always included)\n`);
   }
 
