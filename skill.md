@@ -80,9 +80,10 @@ package/
 3. Analyze & Research   → Combine scan results + user answers + online research (if needed)
 4. Recommend & Guide    → Present RECOMMENDED solution + 2-3 alternatives with reasoning → discuss with user
 5. Confirm Plan         → User selects final approach → generate confirmation summary
-6. Execute              → Load sub-skill → run build process (≤15% deviation without approval)
-7. Audit                → Execute audit.md (mandatory, cannot be skipped)
-8. Final Report         → Output structured build report
+6. Prepare Project      → Detect config gaps → propose modifications → user approves each change → apply
+7. Execute              → Load sub-skill → run build process (≤15% deviation without approval)
+8. Audit                → Execute audit.md (mandatory, cannot be skipped)
+9. Final Report         → Output structured build report
 ```
 
 > **Guidance Philosophy**: The LLM acts as a **build consultant**, not a form-filler. After scanning and asking questions, the LLM MUST synthesize all information, perform targeted research if needed, and present a clear recommendation with reasoning. The user should feel guided, not interrogated.
@@ -355,7 +356,64 @@ Only proceed to execution after the user explicitly confirms.
 
 ---
 
-### Step 1.5: Handling Uncovered Projects (Online Research)
+### Step 6: Prepare Project
+
+After the user confirms the build plan, the LLM MUST check whether the project is ready for the chosen packaging strategy. Many projects require configuration changes, dependency additions, or file modifications before they can be built successfully.
+
+> **Core rule**: Every modification to the user's project requires explicit approval. Never auto-apply changes.
+
+#### 6a. Detect Gaps
+
+Based on the confirmed build plan and the selected sub-skill, scan for:
+
+| Check | Examples |
+|-------|---------|
+| **Missing config files** | `electron-builder.yml`, `tauri.conf.json`, `Dockerfile`, `.github/workflows/build.yml` |
+| **Missing dependencies** | `electron-builder` not in `devDependencies`, `tauri-cli` not installed |
+| **Outdated or incorrect config** | Wrong `main` field in `package.json`, missing `build` scripts |
+| **Missing build assets** | App icon not found or wrong format, no `entitlements.plist` for macOS |
+| **Signing prerequisites** | No signing certificates configured, missing env vars |
+| **Framework-specific requirements** | iOS: no `ExportOptions.plist`; Tauri: Rust toolchain not detected |
+
+#### 6b. Present Modification Plan
+
+Present ALL required changes to the user in a structured checklist **before making any changes**:
+
+```
+📋 Pre-Build Preparation — [Framework] [Platform]
+
+The following changes are needed before building:
+
+ [1] Add file: electron-builder.yml
+     → Configures NSIS installer, code signing, auto-update
+ [2] Add dependency: electron-builder (devDependency)
+     → Required build tool for packaging
+ [3] Modify: package.json → add "build" script
+     → "build": "electron-builder --win --mac"
+ [4] Add file: build/icon.ico (256x256)
+     → App icon for Windows installer
+
+ Reply with numbers to approve (e.g., "1,2,3,4" or "all"),
+ or tell me which to skip.
+```
+
+#### 6c. Apply Approved Changes
+
+- Only apply changes the user explicitly approved
+- For each applied change, show a brief confirmation
+- If the user skips a critical change, warn about potential build failure but respect the decision
+- After all changes are applied, re-confirm readiness before proceeding to Execute
+
+#### 6d. What This Step Does NOT Do
+
+- Does NOT modify business logic or application source code
+- Does NOT change framework version or architecture decisions (those were finalized in Step 5)
+- Does NOT install system-level tools (e.g., Xcode, Android SDK) — those are user's responsibility
+- Does NOT create signing certificates or provisioning profiles
+
+> **Why this step exists**: Skipping project preparation is the #1 cause of build failures. A missing config file or wrong dependency version can waste hours of debugging. This step catches those issues early and fixes them with user approval.
+
+---
 
 When the user's project does NOT match any existing sub-skill (e.g., a niche framework, emerging technology, or proprietary platform):
 

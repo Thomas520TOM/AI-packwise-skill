@@ -51,7 +51,7 @@ Most AI coding assistants treat build as an afterthought — they suggest a comm
 
 ## How It Works
 
-An 8-step consultant workflow — the same process a human build engineer follows:
+A 9-step consultant workflow — the same process a human build engineer follows:
 
 | Step | Action | Result |
 |:----:|--------|--------|
@@ -60,9 +60,10 @@ An 8-step consultant workflow — the same process a human build engineer follow
 | **3** | **Analyze** — combine scan + answers + online research (if needed) | Strategy options |
 | **4** | **Recommend** — present best approach with reasoning + alternatives | Decision support |
 | **5** | **Confirm** — user selects, final build plan generated | Confirmed plan |
-| **6** | **Execute** — load sub-skill, run build commands | Installers / packages |
-| **7** | **Audit** — credentials, `.env`, `.map`, package integrity | Security report |
-| **8** | **Report** — structured final build report | Delivery |
+| **6** | **Prepare** — detect config gaps, propose fixes, user approves each | Ready-to-build project |
+| **7** | **Execute** — load sub-skill, run build commands | Installers / packages |
+| **8** | **Audit** — credentials, `.env`, `.map`, package integrity | Security report |
+| **9** | **Report** — structured final build report | Delivery |
 
 ---
 
@@ -245,7 +246,9 @@ skill.md (Main Orchestrator)
 │
 ├─ 5. Confirm ───────── User selects → final build plan
 │
-├─ 6. Execute ───────── Load sub-skill → run platform-specific build
+├─ 6. Prepare ───────── Detect config gaps → propose fixes → user approves
+│
+├─ 7. Execute ───────── Load sub-skill → run platform-specific build
 │  │
 │  ├─ desktop/ ──────── Electron, Tauri, Qt, Flutter Desktop, games, VR
 │  ├─ mobile/ ───────── Android, iOS, HarmonyOS, Flutter, React Native
@@ -259,9 +262,9 @@ skill.md (Main Orchestrator)
 │  ├─ security/ ─────── Pentest tools, scanners
 │  └─ cross-platform/ ─ .NET MAUI, Kotlin Multiplatform
 │
-├─ 7. Audit 🔒 ──────── Credentials, .env, .map, package integrity
+├─ 8. Audit 🔒 ──────── Credentials, .env, .map, package integrity
 │
-└─ 8. Report ────────── Structured final build report
+└─ 9. Report ────────── Structured final build report
 ```
 
 ---

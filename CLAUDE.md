@@ -4,7 +4,7 @@
 
 When the user asks to **build, package, distribute, or ship** any software project:
 
-1. Read `skill.md` for the complete 8-step workflow
+1. Read `skill.md` for the complete 9-step workflow
 2. Follow the workflow exactly — do not skip steps
 3. After building, always run the mandatory security audit
 

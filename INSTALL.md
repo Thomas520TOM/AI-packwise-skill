@@ -102,7 +102,7 @@ All methods above work across agents. If you need agent-specific configuration:
 ## What Gets Installed
 
 ```
-skill.md        ← Main orchestrator (8-step workflow)
+skill.md        ← Main orchestrator (9-step workflow)
 audit.md        ← Post-build security audit (mandatory)
 sub-skills/     ← 44 platform-specific build guides
   ├── desktop/  (9 files)

@@ -6,7 +6,7 @@ This project contains a universal build & packaging skill set for AI-assisted de
 
 ## Instructions
 
-1. Read `skill.md` — it contains the complete 8-step workflow
+1. Read `skill.md` — it contains the complete 9-step workflow
 2. Scan the user's project first (framework, language, dependencies)
 3. Ask the user key questions (platform, architecture, signing, protection)
 4. Recommend the BEST approach with reasoning + alternatives
