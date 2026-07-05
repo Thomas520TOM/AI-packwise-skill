@@ -139,186 +139,193 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 
 #### Part B: Key Questions
 
-**Q1. Who are the target users?**
-- 1. ⭐ General consumers → One-click installer (NSIS/DMG/APK)
-- 2. Enterprise internal → MSI/Group Policy/MDM
-- 3. Developers → npm/pip/cargo
-- 4. Government/military → Domestic platform adaptation
+**Q1. Who are the target users? / 目标用户是谁？**
+- 1. ⭐ General consumers → One-click installer (NSIS/DMG/APK) / 普通消费者 → 一键安装包
+- 2. Enterprise internal → MSI/Group Policy/MDM / 企业内部 → MSI/组策略/MDM
+- 3. Developers → npm/pip/cargo / 开发者 → npm/pip/cargo
+- 4. Government/military → Domestic platform adaptation / 政府军工 → 国产化平台适配
 
-**Q2. Distribution channel?**
-- 1. ⭐ Website download → Code signing + auto-update
-- 2. App Store → Store signing + review compliance
-- 3. Enterprise internal → MDM/Group Policy
-- 4. Open source → GitHub Releases / npm / PyPI
+**Q2. Distribution channel? / 分发渠道？**
+- 1. ⭐ Website download → Code signing + auto-update / 官网下载 → 代码签名 + 自动更新
+- 2. App Store → Store signing + review compliance / 应用商店 → 商店签名 + 审核合规
+- 3. Enterprise internal → MDM/Group Policy / 企业内部 → MDM/组策略
+- 4. Open source → GitHub Releases / npm / PyPI / 开源 → GitHub Releases / npm / PyPI
 
-**Q3. Target platform(s)?** (multi-select)
+**Q3. Target platform(s)? / 目标平台？** (multi-select / 多选)
 - 1. ⭐ Windows
 - 2. macOS
 - 3. Linux
-- 4. All desktop (1+2+3)
+- 4. All desktop (1+2+3) / 全部桌面端
 - 5. Android
 - 6. iOS/iPadOS
 
-**Q3b. Architecture per platform?** (ask for EACH platform selected in Q3)
+**Q3b. Architecture per platform? / 各平台架构？** (ask for EACH platform selected in Q3 / 按 Q3 选择的平台逐个询问)
 
 > Example: If user selected "Windows + macOS" in Q3, ask:
 > "You selected Windows and macOS. Now choose architecture for each:"
+> 示例：如果用户在 Q3 选择了 "Windows + macOS"，询问：
+> "您选择了 Windows 和 macOS，请为每个平台选择架构："
 
-- **Windows architecture?**
-  - 1. ⭐ x64 only (most common, covers 99% of PCs)
-  - 2. ARM64 only (Surface Pro X, Snapdragon laptops)
-  - 3. Both x64 + ARM64 (two installers output)
-- **macOS architecture?**
-  - 1. ⭐ Universal Binary (x64 + ARM64 in one file, works on all Macs)
-  - 2. ARM64 only (Apple Silicon M1+, no Intel Mac support)
-  - 3. x64 only (Intel Macs only, not recommended)
-- **Linux architecture?**
-  - 1. ⭐ x64 only (most common)
-  - 2. ARM64 only (Raspberry Pi 4/5, ARM servers)
-  - 3. Both x64 + ARM64 (two packages output)
-- **Android architecture?**
-  - 1. ⭐ ARM64 (v8a) — covers 95%+ of modern devices
-  - 2. ARM64 + ARMv7 (for older devices, larger APK)
-  - 3. Universal APK (all architectures, largest size)
-- **iOS architecture?**
-  - 1. ⭐ ARM64 (all modern Apple devices, automatic)
+- **Windows 架构？**
+  - 1. ⭐ x64 only / 仅 x64（最常见，覆盖 99% 电脑）
+  - 2. ARM64 only / 仅 ARM64（Surface Pro X、骁龙笔记本）
+  - 3. Both x64 + ARM64 / 同时输出 x64 + ARM64 两个安装包
+- **macOS 架构？**
+  - 1. ⭐ Universal Binary / 通用二进制（x64 + ARM64 合并，兼容所有 Mac）
+  - 2. ARM64 only / 仅 ARM64（Apple Silicon M1+，不支持 Intel Mac）
+  - 3. x64 only / 仅 x64（仅 Intel Mac，不推荐）
+- **Linux 架构？**
+  - 1. ⭐ x64 only / 仅 x64（最常见）
+  - 2. ARM64 only / 仅 ARM64（树莓派 4/5、ARM 服务器）
+  - 3. Both x64 + ARM64 / 同时输出 x64 + ARM64 两个包
+- **Android 架构？**
+  - 1. ⭐ ARM64 (v8a) — covers 95%+ devices / 覆盖 95%+ 现代设备
+  - 2. ARM64 + ARMv7 — for older devices / 兼容旧设备，APK 体积更大
+  - 3. Universal APK — all architectures / 全架构，体积最大
+- **iOS 架构？**
+  - 1. ⭐ ARM64 (all modern Apple devices, automatic) / 所有现代 Apple 设备，自动适配
 
 > All selected architecture packages will be output to the same target folder (Q13).
+> 所有选中的架构包将输出到同一目标文件夹（Q13）。
 
-**Q3c. Architecture output mode?**
+**Q3c. Architecture output mode? / 架构输出模式？**
 
 > This determines how multi-architecture builds are packaged. Based on your Q3b selections, here is what will be output:
+> 决定多架构构建如何打包。根据您在 Q3b 的选择，以下是输出预览：
 
-**Example:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3b:
+**Example / 示例:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3b:
 
-| Mode | Output | Count |
+| Mode / 模式 | Output / 输出 | Count / 数量 |
 |------|--------|:-----:|
-| **Separate** | `MyApp-v1.0.0-windows-x64.exe` + `MyApp-v1.0.0-windows-arm64.exe` + `MyApp-v1.0.0-macos-universal.dmg` | 3 files |
-| **Merged** | `MyApp-v1.0.0-windows.exe` (x64+ARM64) + `MyApp-v1.0.0-macos-universal.dmg` | 2 files |
+| **Separate / 分开** | `MyApp-v1.0.0-windows-x64.exe` + `MyApp-v1.0.0-windows-arm64.exe` + `MyApp-v1.0.0-macos-universal.dmg` | 3 files |
+| **Merged / 合并** | `MyApp-v1.0.0-windows.exe` (x64+ARM64) + `MyApp-v1.0.0-macos-universal.dmg` | 2 files |
 
-- **Windows (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate — select which architectures to output (multi-select):
+- **Windows (if x64 + ARM64 selected in Q3b)? / Windows（如在 Q3b 选择了 x64 + ARM64）？**
+  - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64
     - ARM64
-  - 2. Merged — single installer that supports both architectures
-- **macOS (if Universal Binary NOT selected in Q3b)?**
-  - 1. ⭐ Separate — select which to output (multi-select):
+  - 2. Merged — single installer / 合并 — 单个安装包
+- **macOS (if Universal Binary NOT selected in Q3b)? / macOS（如未选择通用二进制）？**
+  - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64 (Intel)
     - ARM64 (Apple Silicon)
-  - 2. Merged — single `.dmg`
-- **Linux (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate — select which to output (multi-select):
+  - 2. Merged — single `.dmg` / 合并 — 单个 `.dmg`
+- **Linux (if x64 + ARM64 selected in Q3b)? / Linux（如选择了 x64 + ARM64）？**
+  - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64
     - ARM64
-  - 2. Merged — single package
-- **Android (if multiple architectures selected in Q3b)?**
-  - 1. ⭐ Separate — select which to output (multi-select):
+  - 2. Merged — single package / 合并 — 单个包
+- **Android (if multiple architectures selected in Q3b)? / Android（如选择了多个架构）？**
+  - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - ARM64 (v8a)
     - ARMv7
-    - Universal
-  - 2. Single APK — all architectures merged
+    - Universal / 全架构
+  - 2. Single APK — all architectures merged / 单个 APK — 全架构合并
 
-> **Naming convention** (auto-applied for separate output):
+> **Naming convention / 命名规范** (auto-applied for separate output / 分开输出时自动应用):
 > `[AppName]-v[Version]-[OS]-[Arch].[ext]`
-> Examples: `MyApp-v1.0.0-windows-x64.exe`, `MyApp-v1.0.0-macos-arm64.dmg`, `MyApp-v1.0.0-linux-x64.AppImage`
+> Examples / 示例: `MyApp-v1.0.0-windows-x64.exe`, `MyApp-v1.0.0-macos-arm64.dmg`
 
-> **After user selects, show final output list** — only include architectures the user actually chose:
+> **After user selects, show final output list / 用户选择后，展示最终输出列表**:
 > ```
-> 📦 Build output (2 files):
+> 📦 Build output / 构建输出 (2 files):
 >   1. MyApp-v1.0.0-windows-x64.exe     (Windows x64)
 >   2. MyApp-v1.0.0-macos-arm64.dmg     (macOS ARM64)
 > ```
 > If user deselects an architecture, it is excluded from the build entirely.
+> 如果用户取消勾选某个架构，该架构将完全不参与构建。
 
-**Q3d. Minimum OS version?**
+**Q3d. Minimum OS version? / 最低系统版本？**
 
 - **Windows:**
-  - 1. ⭐ Windows 10 (most common, Electron 31+ requires it)
+  - 1. ⭐ Windows 10 (most common, Electron 31+ requires) / 最常见，Electron 31+ 要求
   - 2. Windows 11
-  - 3. Custom → after selecting, type the version in chat
+  - 3. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 - **macOS:**
-  - 1. ⭐ macOS 10.15 (Catalina, Electron 31 default)
+  - 1. ⭐ macOS 10.15 (Catalina, Electron 31 default) / Electron 31 默认
   - 2. macOS 12 (Monterey)
-  - 3. Custom → after selecting, type the version in chat
+  - 3. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 - **Linux:**
-  - 1. ⭐ No specific requirement
-  - 2. Custom → after selecting, type the requirement in chat
+  - 1. ⭐ No specific requirement / 无特殊要求
+  - 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
-**Q4. App name?**
-- 1. ⭐ Use project folder name
-- 2. Custom → after selecting, type the name in chat
+**Q4. App name? / 应用名称？**
+- 1. ⭐ Use project folder name / 使用项目文件夹名称
+- 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
-**Q4b. Version?**
+**Q4b. Version? / 版本号？**
 - 1. ⭐ 1.0.0
-- 2. Use package.json version (if exists)
-- 3. Custom → after selecting, type the version in chat
+- 2. Use package.json version / 使用 package.json 版本（如存在）
+- 3. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
-**Q4c. Copyright holder?**
-- 1. ⭐ Use git config user.name (if available)
-- 2. Custom → after selecting, type the name in chat
+**Q4c. Copyright holder? / 版权持有者？**
+- 1. ⭐ Use git config user.name / 使用 git 配置的用户名（如可用）
+- 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
-**Q4d. Language / Localization?**
-- 1. ⭐ English only (default)
-- 2. Chinese (Simplified)
-- 3. Chinese (Traditional)
-- 4. Multi-language (English + Chinese)
-- 5. Custom → after selecting, type the languages in chat
+**Q4d. Language / Localization? / 语言 / 本地化？**
+- 1. ⭐ English only / 仅英文（默认）
+- 2. Chinese (Simplified) / 中文（简体）
+- 3. Chinese (Traditional) / 中文（繁体）
+- 4. Multi-language (English + Chinese) / 多语言（英文 + 中文）
+- 5. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
-**Q4e. License file?**
-- 1. ⭐ MIT (auto-detect from LICENSE file if exists)
+**Q4e. License file? / 许可证文件？**
+- 1. ⭐ MIT (auto-detect from LICENSE file if exists) / MIT（如存在 LICENSE 文件自动检测）
 - 2. Apache 2.0
 - 3. GPL v3
-- 4. Proprietary / Commercial
-- 5. Custom → after selecting, type the license in chat
-- 6. None — do not include license in package
+- 4. Proprietary / Commercial / 商业 / 专有
+- 5. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
+- 6. None — do not include license in package / 无 — 不在安装包中包含许可证
 
-**Q4f. Installer UI customization?**
-- 1. ⭐ Default theme (clean, standard look)
-- 2. Custom branding → after selecting, describe your requirements in chat (e.g., custom welcome screen, background image, text colors)
-- 3. Minimal / unbranded — no logo, no custom text, just functional installer
+**Q4f. Installer UI customization? / 安装界面自定义？**
+- 1. ⭐ Default theme / 默认主题（简洁标准外观）
+- 2. Custom branding → after selecting, describe in chat / 自定义品牌 → 选择后在聊天中描述需求（如自定义欢迎页、背景图、文字颜色等）
+- 3. Minimal / unbranded / 极简无品牌 — 无 logo、无自定义文字，纯功能性安装器
 
-**Q5. Logo/icon ready?**
-- 1. ⭐ Yes, I have icons → after selecting, type the file path in chat
-- 2. Need to generate → Recommend tool based on platform
-- 3. Use default → Not recommended for production
+**Q5. Logo/icon ready? / Logo 图标是否就绪？**
+- 1. ⭐ Yes, I have icons → after selecting, type file path in chat / 有图标 → 选择后在聊天中输入文件路径
+- 2. Need to generate → Recommend tool based on platform / 需要生成 → 根据平台推荐工具
+- 3. Use default → Not recommended for production / 使用默认 → 不建议用于正式发布
 
-**Q6. Source code protection (anti-reverse-engineering)?**
+**Q6. Source code protection (anti-reverse-engineering)? / 源码保护（防反编译）？**
 
 > This determines how hard it is for someone to decompile and read your source code from the packaged app.
+> 决定他人从安装包中反编译和读取源码的难度。
 
-- 1. ⭐ **Standard packaging** — Code bundled but extractable with basic tools. Fine for most apps. (Electron: ASAR; Tauri: already compiled Rust, very hard to reverse)
-- 2. **Obfuscation** — JavaScript/TypeScript code is scrambled (variable names mangled, control flow flattened). Takes minutes to hours to reverse. Adds ~1 min build time.
-- 3. **Bytecode compilation** — Source code compiled to V8 binary bytecode (.jsc). Cannot be read as text. Must match Electron's Node.js version. Takes ~2 min build time. (Electron only)
-- 4. **Full protection scheme** — All of the above + AES-256-CBC encryption of config files + image base64 embedding. Recommended for commercial software with proprietary algorithms. Adds ~5 min build time.
-- 5. **None** — Open source project, no protection needed. Anyone can read the code.
+- 1. ⭐ **Standard packaging / 标准打包** — Code bundled but extractable / 代码打包但可提取（Electron: ASAR; Tauri: 已编译的 Rust，反编译难度高）
+- 2. **Obfuscation / 代码混淆** — JS/TS code scrambled / 代码混淆（变量名混淆、控制流平坦化），需数分钟至数小时反编译，增加约 1 分钟构建时间
+- 3. **Bytecode compilation / 字节码编译** — Compiled to V8 bytecode / 编译为 V8 字节码（.jsc），不可读为文本，需匹配 Electron 的 Node.js 版本，增加约 2 分钟构建时间（仅 Electron）
+- 4. **Full protection / 完整保护** — ASAR + obfuscation + AES-256-CBC encryption + image embedding / ASAR + 混淆 + AES 加密 + 图片嵌入，推荐商业软件使用，增加约 5 分钟构建时间
+- 5. **None / 不保护** — Open source project / 开源项目，无需保护
 
-**Q7. Clear test data and hardcoded keys before packaging?**
-- 1. ⭐ Yes, clean everything
-- 2. No (dev build only)
+**Q7. Clear test data and hardcoded keys? / 清除测试数据和硬编码密钥？**
+- 1. ⭐ Yes, clean everything / 是，全部清除
+- 2. No (dev build only) / 否（仅开发构建）
 
-**Q8. Code signing?**
-- 1. ⭐ Yes, I have certificates
-- 2. No signing (will show security warnings)
-- 3. Help me understand what I need
+**Q8. Code signing? / 代码签名？**
+- 1. ⭐ Yes, I have certificates / 是，我有证书
+- 2. No signing (will show security warnings) / 不签名（将显示安全警告）
+- 3. Help me understand / 帮我了解需要什么
 
-**Q9. Auto-update?**
-- 1. ⭐ Yes
-- 2. No
+**Q9. Auto-update? / 自动更新？**
+- 1. ⭐ Yes / 是
+- 2. No / 否
 
-**Q9b. Is this a first publish or an update to an existing app?**
-- 1. ⭐ First publish — fresh release, no existing users
-- 2. Update — existing app with users who need seamless upgrade
-- 3. Not sure → I'll guide you
+**Q9b. First publish or update? / 首次发布还是更新？**
+- 1. ⭐ First publish — fresh release / 首次发布 — 全新发布
+- 2. Update — existing app with users / 更新 — 已有用户的应用
+- 3. Not sure → I'll guide you / 不确定 → 我来引导你
 
-**Q10. Output location?**
-- 1. ⭐ `./release/` (default)
-- 2. Custom → after selecting, type the path in chat
+**Q10. Output location? / 输出位置？**
+- 1. ⭐ `./release/` (default / 默认)
+- 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
 > When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+> 当多架构分开输出时（Q3c），文件名自动包含平台和架构信息。
 
-**Q11. Any special requirements?**
-- 1. ⭐ None
-- 2. Custom → after selecting, type the requirements in chat
+**Q11. Any special requirements? / 特殊需求？**
+- 1. ⭐ None / 无
+- 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
 ---
 
