@@ -22,7 +22,7 @@
     <img src="https://img.shields.io/badge/tested-10-success?style=flat-square" alt="tested">
   </a>
   <a href="#installation">
-    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=flat-square" alt="works with">
+    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Cursor%20%7C%20OpenCode%20%7C%20Copilot-yellow?style=flat-square" alt="works with">
   </a>
 </p>
 
@@ -189,7 +189,7 @@ skills:
     name: packwise
 ```
 
-**GitHub Copilot** — copy to `.github/copilot/` or `.copilot/skills/` and reference in prompts:
+**GitHub Copilot** — copy to `.copilot/skills/packwise/` and reference in prompts:
 ```bash
 mkdir -p .copilot/skills/packwise/
 cp skill.md audit.md .copilot/skills/packwise/
