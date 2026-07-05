@@ -86,11 +86,12 @@ All methods above work across agents. If you need agent-specific configuration:
 |-------|-----------------|--------|
 | **Claude Code** | `~/.claude/skills/packwise/` or project `.claude/skills/packwise/` | Natural language: "package my app" |
 | **Cursor** | Project `.cursor/rules/` or root `skills/packwise/` | Auto-reads `.cursorrules` and skill files |
-| **Windsurf** | Project root `skills/packwise/` | Auto-reads project docs |
 | **OpenCode** | Project `.opencode/skills/packwise/` | `@packwise/skill.md` |
-| **Hermes** | Config `skills:` section or project dir | Config + natural language |
-| **WorkBuddy** | `.workbuddy/skills/packwise/` | `@packwise` prefix |
-| **Codex CLI** | Project root (reads all .md) | Auto-reads context |
+| **Codex CLI** | Project root (copy as `PACKWISE.md`) | Auto-reads context |
+| **OpenClaw** | Project `.openclaw/skills/packwise/` | `@packwise/skill.md` |
+| **WorkBuddy** | `~/.workbuddy/skills/packwise/` | `/project:packwise` |
+| **Trae** | Project `.trae/skills/packwise/` | `@packwise/skill.md` |
+| **Windsurf** | Project root `skills/packwise/` | Auto-reads project docs |
 | **Zed AI** | Project root | Auto-reads context |
 | **Any agent** | Any accessible path | "Read [path]/skill.md" |
 

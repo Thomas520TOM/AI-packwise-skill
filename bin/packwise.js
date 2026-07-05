@@ -58,6 +58,31 @@ const AGENTS = [
     projectDir: path.join(CWD, 'skills', 'packwise'),
     installTarget: 'project',
   },
+  {
+    name: 'OpenClaw',
+    detect: () => fs.existsSync(path.join(HOME, '.openclaw')) || fs.existsSync(path.join(CWD, '.openclaw')),
+    projectDir: path.join(CWD, '.openclaw', 'skills', 'packwise'),
+    installTarget: 'project',
+  },
+  {
+    name: 'WorkBuddy',
+    detect: () => fs.existsSync(path.join(HOME, '.workbuddy')) || fs.existsSync(path.join(CWD, '.workbuddy')),
+    userDir: path.join(HOME, '.workbuddy', 'skills', 'packwise'),
+    projectDir: path.join(CWD, '.workbuddy', 'skills', 'packwise'),
+    installTarget: 'user',
+  },
+  {
+    name: 'Trae',
+    detect: () => fs.existsSync(path.join(HOME, '.trae')) || fs.existsSync(path.join(CWD, '.trae')),
+    projectDir: path.join(CWD, '.trae', 'skills', 'packwise'),
+    installTarget: 'project',
+  },
+  {
+    name: 'Codex CLI',
+    detect: () => false, // No directory marker; user must manually place PACKWISE.md
+    projectDir: path.join(CWD, 'skills', 'packwise'),
+    installTarget: 'project',
+  },
 ];
 
 // Parse --only flag
