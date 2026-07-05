@@ -235,35 +235,33 @@ Full instructions: [INSTALL.md](INSTALL.md)
 ```
 skill.md (Main Orchestrator)
 │
-├─ Step 1: Project Scan ─────── Detect framework, language, deps, env
+├─ 1. Scan ─────────── Detect framework, language, deps, env
 │
-├─ Step 2: Intake ───────────── Ask 12 questions (platform, arch, signing...)
-│  ├─ Part A: Project Summary    ← scan results displayed
-│  ├─ Part B: Questions          ← interactive options with defaults
-│  └─ Part C: Confirmation       ← summary table for user approval
+├─ 2. Intake ────────── Report findings → ask 12 structured questions
 │
-├─ Step 3: Analyze & Research ── Combine data + online research if needed
+├─ 3. Analyze ───────── Combine scan + answers + online research
 │
-├─ Step 4: Recommend ⭐ ──────── Best solution + alternatives + reasoning
+├─ 4. Recommend ⭐ ──── Best approach + alternatives + reasoning
 │
-├─ Step 5: Confirm ───────────── User selects → final build plan
+├─ 5. Confirm ───────── User selects → final build plan
 │
-├─ Step 6: Execute ───────────── Load sub-skill → run build commands
-│  ├─ sub-skills/desktop/       Electron, Tauri, Qt, games, VR...
-│  ├─ sub-skills/mobile/        Android, iOS, Flutter, RN, watchOS...
-│  ├─ sub-skills/web/           Vite, Next.js, PWA, WASM...
-│  ├─ sub-skills/backend/       Node, Python, Go, Rust, Java, PHP
-│  ├─ sub-skills/ai/            PyTorch, Ollama, llama.cpp
-│  ├─ sub-skills/cli/           PyInstaller, npm/PyPI publishing
-│  ├─ sub-skills/plugins/       Chrome, VS Code, JetBrains
-│  ├─ sub-skills/embedded/      ESP32, STM32, ROS, car
-│  ├─ sub-skills/security/      Pentest tools, scanners
-│  ├─ sub-skills/cloud/         Docker, K8s, CI/CD
-│  └─ sub-skills/cross-platform/ .NET MAUI, KMP
+├─ 6. Execute ───────── Load sub-skill → run platform-specific build
+│  │
+│  ├─ desktop/ ──────── Electron, Tauri, Qt, Flutter Desktop, games, VR
+│  ├─ mobile/ ───────── Android, iOS, HarmonyOS, Flutter, React Native
+│  ├─ web/ ──────────── Vite, Next.js, PWA, Serverless, WASM
+│  ├─ backend/ ──────── Node.js, Python, Go, Rust, Java, PHP
+│  ├─ ai/ ───────────── PyTorch, Ollama, llama.cpp, vLLM
+│  ├─ cli/ ──────────── PyInstaller, npm/PyPI publishing
+│  ├─ plugins/ ──────── Chrome, VS Code, JetBrains
+│  ├─ embedded/ ─────── ESP32, STM32, ROS, car infotainment
+│  ├─ cloud/ ────────── Docker, Kubernetes, CI/CD
+│  ├─ security/ ─────── Pentest tools, scanners
+│  └─ cross-platform/ ─ .NET MAUI, Kotlin Multiplatform
 │
-├─ Step 7: Audit (mandatory) ── Credentials, .env, .map, package check
+├─ 7. Audit 🔒 ──────── Credentials, .env, .map, package integrity
 │
-└─ Step 8: Final Report ─────── Build report with all results
+└─ 8. Report ────────── Structured final build report
 ```
 
 ---
