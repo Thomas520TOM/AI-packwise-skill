@@ -517,26 +517,32 @@ Before presenting the modification plan, the LLM MUST ask the following question
 
 #### 6b. Present Modification Plan
 
-Present ALL required changes to the user in a structured checklist **before making any changes**:
+Present ALL required changes to the user in a structured checklist **before making any changes**, then use `AskUserQuestion` for confirmation:
 
 ```
-📋 Pre-Build Preparation — [Framework] [Platform]
+📋 Pre-Build Preparation / 构建前准备 — [Framework] [Platform]
 
-App icon: Please provide the logo file path
-          → Crop and round corners for installer icon? (yes/no)
+App icon / 应用图标: Please provide the logo file path / 请提供 logo 文件路径
+          → Crop and round corners? / 是否裁切圆角？(yes/no)
 
-The following config changes are needed:
+Config changes needed / 需要的配置变更:
 
- [1] Add file: electron-builder.yml
-     → Configures NSIS installer, code signing, auto-update
- [2] Add dependency: electron-builder (devDependency)
-     → Required build tool for packaging
- [3] Modify: package.json → add "build" script
+ [1] Add file / 添加文件: electron-builder.yml
+     → NSIS installer, code signing, auto-update
+ [2] Add dependency / 添加依赖: electron-builder (devDependency)
+     → Required build tool / 构建必需工具
+ [3] Modify / 修改: package.json → add "build" script
      → "build": "electron-builder --win --mac"
-
- Reply with your logo path and numbers to approve config changes,
- or tell me which to skip.
 ```
+
+Then use `AskUserQuestion`:
+
+- ✅ **Approve all / 全部同意**
+- ☑️ **Approve selectively / 选择性同意** → after selecting, type the numbers in chat (e.g., "1,3")
+- ➕ **Need to add changes / 需要补充修改** → after selecting, describe the additional changes in chat
+- ❌ **Reject all / 全部拒绝** → after selecting, explain what to change in chat
+
+> Only apply changes the user explicitly approved. If user adds new changes, append them to the plan and re-confirm.
 
 #### 6c. Apply Approved Changes
 
