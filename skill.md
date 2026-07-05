@@ -94,6 +94,8 @@ After scanning, the AI reports findings and asks questions **in one interactive 
 
 **Format**: Every question MUST be presented via an interactive selection mechanism. Group 3-4 questions per call when possible.
 
+**Language**: ALL questions and options MUST be bilingual (Chinese + English). Every question text, option label, and option description must appear in both languages. Example: `Q1. Who are the target users? / 目标用户是谁？`
+
 **Agent-specific interaction patterns:**
 - **Claude Code**: Use `AskUserQuestion` tool (popup with selectable options + input field)
 - **Cursor**: Present questions as numbered options in chat; user replies with numbers
