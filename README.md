@@ -166,6 +166,14 @@ Then invoke in your AI agent:
 > package my Electron app for Windows
 ```
 
+### Updating
+
+```bash
+npx packwise-skills update
+```
+
+This automatically detects your installation method and updates to the latest version.
+
 ---
 
 ### Selective Installation

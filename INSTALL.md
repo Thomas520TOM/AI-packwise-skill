@@ -150,9 +150,13 @@ rm -rf skills/packwise/                # Generic project-level
 
 **Want to update?**
 ```bash
+# Auto-detect and update (recommended)
+npx packwise-skills update
+
+# Or manually:
 # npm
 npm update -g packwise-skills
 
 # git
-cd ~/.ai-skills/packwise && git pull
+cd ~/.claude/skills/packwise && git pull
 ```

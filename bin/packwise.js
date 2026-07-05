@@ -10,6 +10,7 @@
  *   npx packwise-skills --only electron,mobile       # Mix both
  *   npx packwise-skills uninstall                    # Remove
  *   npx packwise-skills list                         # Show installed
+ *   npx packwise-skills update                       # Update to latest version
  *
  * Categories: desktop, mobile, web, backend, ai, cli, plugins, embedded, security, cloud, cross-platform
  */
@@ -284,8 +285,38 @@ else if (command === 'list') {
   console.log('');
 }
 
+else if (command === 'update') {
+  console.log('\n  Packwise — Update\n');
+
+  const { execSync } = require('child_process');
+  let updated = false;
+
+  for (const agent of AGENTS) {
+    const targets = [agent.userDir, agent.projectDir].filter(Boolean);
+    for (const target of targets) {
+      if (fs.existsSync(target) && fs.existsSync(path.join(target, '.git'))) {
+        console.log(`  Updating ${agent.name}: ${target}`);
+        try {
+          execSync('git pull', { cwd: target, stdio: 'pipe' });
+          console.log(`  ✓ Updated ${agent.name}`);
+          updated = true;
+        } catch (e) {
+          console.log(`  ✗ Failed to update ${agent.name}: ${e.message}`);
+        }
+      }
+    }
+  }
+
+  if (!updated) {
+    console.log('  No git-based installations found.');
+    console.log('  If installed via npm, run: npm update -g packwise-skills');
+    console.log('  If installed via curl, re-run the install script.');
+  }
+  console.log('');
+}
+
 else {
   console.log(`\n  Unknown command: ${command}`);
-  console.log('  Usage: npx packwise-skills [install|uninstall|list] [--only desktop,mobile]\n');
+  console.log('  Usage: npx packwise-skills [install|uninstall|list|update] [--only desktop,mobile]\n');
   process.exit(1);
 }
