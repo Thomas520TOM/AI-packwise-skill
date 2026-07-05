@@ -184,19 +184,23 @@ Use `AskUserQuestion` tool with the following options:
 - 3. Enterprise internal → MDM/Group Policy / 企业内部 → MDM/组策略
 - 4. Open source → GitHub Releases / npm / PyPI / 开源 → GitHub Releases / npm / PyPI
 
-**Q3. Target platform(s)? / 目标平台？** (multi-select / 多选)
+**Q3a. Desktop platform(s)? / 桌面端平台？** (multi-select / 多选)
 - 1. ⭐ Windows
 - 2. macOS
 - 3. Linux
-- 4. All desktop (1+2+3) / 全部桌面端
-- 5. Android
-- 6. iOS/iPadOS
+- 4. None / 不需要桌面端
 
-**Q3b. Architecture per platform? / 各平台架构？** (ask for EACH platform selected in Q3 / 按 Q3 选择的平台逐个询问)
+**Q3b. Mobile platform(s)? / 移动端平台？** (multi-select / 多选)
+- 1. Android
+- 2. iOS/iPadOS
+- 3. HarmonyOS / 鸿蒙
+- 4. None / 不需要移动端
 
-> Example: If user selected "Windows + macOS" in Q3, ask:
+**Q3c. Architecture per platform? / 各平台架构？** (ask for EACH platform selected in Q3a/Q3b / 按 Q3a/Q3b 选择的平台逐个询问)
+
+> Example: If user selected "Windows + macOS" in Q3a, ask:
 > "You selected Windows and macOS. Now choose architecture for each:"
-> 示例：如果用户在 Q3 选择了 "Windows + macOS"，询问：
+> 示例：如果用户在 Q3a 选择了 "Windows + macOS"，询问：
 > "您选择了 Windows 和 macOS，请为每个平台选择架构："
 
 - **Windows 架构？**
@@ -221,10 +225,10 @@ Use `AskUserQuestion` tool with the following options:
 > All selected architecture packages will be output to the same target folder (see output location in Step 6).
 > 所有选中的架构包将输出到同一目标文件夹（见 Step 6 输出位置）。
 
-**Q3c. Architecture output mode? / 架构输出模式？** (only ask when user selected 2+ architectures for a platform in Q3b / 仅当用户在 Q3b 中为某平台选择了 2 个以上架构时才询问)
+**Q3d. Architecture output mode? / 架构输出模式？** (only ask when user selected 2+ architectures for a platform in Q3c / 仅当用户在 Q3c 中为某平台选择了 2 个以上架构时才询问)
 
-> This determines how multi-architecture builds are packaged. Based on your Q3b selections, here is what will be output:
-> 决定多架构构建如何打包。根据您在 Q3b 的选择，以下是输出预览：
+> This determines how multi-architecture builds are packaged. Based on your Q3c selections, here is what will be output:
+> 决定多架构构建如何打包。根据您在 Q3c 的选择，以下是输出预览：
 
 **Example / 示例:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3b:
 
@@ -233,22 +237,22 @@ Use `AskUserQuestion` tool with the following options:
 | **Separate / 分开** | `MyApp-v1.0.0-windows-x64.exe` + `MyApp-v1.0.0-windows-arm64.exe` + `MyApp-v1.0.0-macos-universal.dmg` | 3 files |
 | **Merged / 合并** | `MyApp-v1.0.0-windows.exe` (x64+ARM64) + `MyApp-v1.0.0-macos-universal.dmg` | 2 files |
 
-- **Windows (if x64 + ARM64 selected in Q3b)? / Windows（如在 Q3b 选择了 x64 + ARM64）？**
+- **Windows (if x64 + ARM64 selected in Q3c)? / Windows（如在 Q3c 选择了 x64 + ARM64）？**
   - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64
     - ARM64
   - 2. Merged — single installer / 合并 — 单个安装包
-- **macOS (if Universal Binary NOT selected in Q3b)? / macOS（如未选择通用二进制）？**
+- **macOS (if Universal Binary NOT selected in Q3c)? / macOS（如未选择通用二进制）？**
   - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64 (Intel)
     - ARM64 (Apple Silicon)
   - 2. Merged — single `.dmg` / 合并 — 单个 `.dmg`
-- **Linux (if x64 + ARM64 selected in Q3b)? / Linux（如选择了 x64 + ARM64）？**
+- **Linux (if x64 + ARM64 selected in Q3c)? / Linux（如选择了 x64 + ARM64）？**
   - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - x64
     - ARM64
   - 2. Merged — single package / 合并 — 单个包
-- **Android (if multiple architectures selected in Q3b)? / Android（如选择了多个架构）？**
+- **Android (if multiple architectures selected in Q3c)? / Android（如选择了多个架构）？**
   - 1. ⭐ Separate — select which to output (multi-select) / 分开 — 选择输出哪些（多选）:
     - ARM64 (v8a)
     - ARMv7
@@ -268,7 +272,7 @@ Use `AskUserQuestion` tool with the following options:
 > If user deselects an architecture, it is excluded from the build entirely.
 > 如果用户取消勾选某个架构，该架构将完全不参与构建。
 
-**Q3d. Minimum OS version? / 最低系统版本？**
+**Q3e. Minimum OS version? / 最低系统版本？**
 
 - **Windows:**
   - 1. ⭐ Windows 10 (most common, Electron 31+ requires) / 最常见，Electron 31+ 要求
@@ -296,18 +300,15 @@ Use `AskUserQuestion` tool with the following options:
 
 **Q4d. Language / Localization? / 语言 / 本地化？**
 - 1. ⭐ English only / 仅英文（默认）
-- 2. Chinese (Simplified) / 中文（简体）
-- 3. Chinese (Traditional) / 中文（繁体）
-- 4. Multi-language (English + Chinese) / 多语言（英文 + 中文）
-- 5. Custom / 自定义 → type languages in tool / 在工具中输入语言
+- 2. Chinese / 中文（简体 + 繁体）
+- 3. Multi-language / 多语言（English + Chinese）
+- 4. Custom / 自定义 → type languages in tool / 在工具中输入语言
 
 **Q4e. License file? / 许可证文件？**
 - 1. ⭐ [detected from LICENSE file, e.g., MIT] / [从 LICENSE 文件检测，如 MIT]
-- 2. Apache 2.0
-- 3. GPL v3
-- 4. Proprietary / Commercial / 商业 / 专有
-- 5. Custom / 自定义 → type license in tool / 在工具中输入许可证类型
-- 6. None — do not include license in package / 无 — 不在安装包中包含许可证
+- 2. Open source (Apache/GPL/其他) / 开源协议 → type in tool / 在工具中输入
+- 3. Proprietary / Commercial / 商业 / 专有
+- 4. None / 无 — do not include license in package / 不在安装包中包含许可证
 
 **Q4f. Installer UI customization? / 安装界面自定义？**
 - 1. ⭐ Default theme / 默认主题（简洁标准外观）
@@ -339,7 +340,6 @@ Use `AskUserQuestion` tool with the following options:
 - 2. First publish, no auto-update / 首次发布，不自动更新
 - 3. Update existing app + auto-update / 更新已有应用 + 自动更新
 - 4. Update existing app, no auto-update / 更新已有应用，不自动更新
-- 5. Not sure → I'll guide you / 不确定 → 我来引导你
 
 **Q10. Any special requirements? / 特殊需求？**
 - 1. ⭐ None / 无
@@ -507,8 +507,8 @@ Before presenting the modification plan, the LLM MUST ask the following question
 - 1. ⭐ `./release/` (default / 默认)
 - 2. Custom path / 自定义路径 → type path in tool / 在工具中输入路径
 
-> When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
-> 当多架构分开输出时（Q3c），文件名自动包含平台和架构信息。
+> When multiple architectures are output separately (Q3d), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+> 当多架构分开输出时（Q3d），文件名自动包含平台和架构信息。
 
 > **Note**: Encryption/protection level (Q6) was already confirmed in Step 2. Use that answer directly — do NOT ask again.
 > **注意**：加密/保护等级（Q6）已在 Step 2 确认，直接使用，不要重复询问。
@@ -518,7 +518,7 @@ Before presenting the modification plan, the LLM MUST ask the following question
 - 2. Use original as-is / 使用原图不处理
 - 3. Skip / 跳过
 
-#### 6b. Present Modification Plan
+#### 6c. Present Modification Plan
 
 Present ALL required changes to the user in a structured checklist **before making any changes**, then use `AskUserQuestion` for confirmation:
 
