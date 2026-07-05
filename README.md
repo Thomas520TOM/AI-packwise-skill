@@ -25,6 +25,17 @@
     <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=flat-square" alt="works with">
   </a>
 </p>
+<p align="center">
+  <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/🤖%20built%20for-Claude%20Code-black?style=for-the-badge" alt="built for Claude Code">
+  </a>
+  <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank">
+    <img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=for-the-badge" alt="Buy Me a Coffee">
+  </a>
+  <a href="https://github.com/sponsors/Thomas520TOM" target="_blank">
+    <img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=for-the-badge" alt="GitHub Sponsors">
+  </a>
+</p>
 
 ---
 
@@ -279,7 +290,7 @@ git push origin feat/my-improvement
 
 <div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
 
 This project is licensed under the [MIT License](LICENSE).
 
@@ -292,7 +303,7 @@ This project is licensed under the [MIT License](LICENSE).
   <br><br>
   <a href="https://github.com/Thomas520TOM/packwise-skills">GitHub</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/issues">Issues</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/INSTALL.md">Install Guide</a>
   <br><br>
-  <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=flat-square" alt="Buy Me a Coffee"></a>
+  <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=for-the-badge" alt="Buy Me a Coffee"></a>
   &nbsp;
-  <a href="https://github.com/sponsors/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=flat-square" alt="GitHub Sponsors"></a>
+  <a href="https://github.com/sponsors/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=for-the-badge" alt="GitHub Sponsors"></a>
 </div>
