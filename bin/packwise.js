@@ -83,6 +83,18 @@ const AGENTS = [
     projectDir: path.join(CWD, 'skills', 'packwise'),
     installTarget: 'project',
   },
+  {
+    name: 'Hermes',
+    detect: () => fs.existsSync(path.join(CWD, 'hermes.config.yaml')) || fs.existsSync(path.join(CWD, 'hermes.config.yml')),
+    projectDir: path.join(CWD, 'skills', 'packwise'),
+    installTarget: 'project',
+  },
+  {
+    name: 'GitHub Copilot',
+    detect: () => fs.existsSync(path.join(CWD, '.copilot')) || fs.existsSync(path.join(HOME, '.copilot')),
+    projectDir: path.join(CWD, '.copilot', 'skills', 'packwise'),
+    installTarget: 'project',
+  },
 ];
 
 // Parse --only flag

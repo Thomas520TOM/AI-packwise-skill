@@ -79,7 +79,7 @@ Packwise is more than a build script. It's a **complete packaging intelligence l
 | **Consultant workflow** | Recommend → confirm → execute, never auto-builds without approval |
 | **Version-verified** | Build commands checked against npm, PyPI, crates.io, official registries |
 | **CI/CD templates** | GitHub Actions and GitLab CI configs included in every sub-skill |
-| **Cross-tool support** | Works with Claude Code, OpenCode, Cursor, Codex CLI, OpenClaw, WorkBuddy, Trae, and more |
+| **Cross-tool support** | Works with Claude Code, OpenCode, Cursor, Codex CLI, OpenClaw, WorkBuddy, Trae, Hermes, GitHub Copilot, and more |
 
 ---
 
@@ -153,7 +153,7 @@ curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/i
 ---
 
 <details>
-<summary><strong>Other AI tools</strong> — OpenCode, Cursor, Codex CLI, OpenClaw, WorkBuddy, Trae</summary>
+<summary><strong>Other AI tools</strong> — OpenCode, Cursor, Codex CLI, OpenClaw, WorkBuddy, Trae, Hermes, GitHub Copilot</summary>
 
 **OpenCode** — copy to `.opencode/skills/packwise/` and reference in prompts:
 ```bash
@@ -180,6 +180,20 @@ cp -r sub-skills/ .openclaw/skills/packwise/
 mkdir -p .trae/skills/packwise/
 cp skill.md audit.md .trae/skills/packwise/
 cp -r sub-skills/ .trae/skills/packwise/
+```
+
+**Hermes / LangChain Agents** — add to `hermes.config.yaml`:
+```yaml
+skills:
+  - path: /path/to/packwise/
+    name: packwise
+```
+
+**GitHub Copilot** — copy to `.github/copilot/` or `.copilot/skills/` and reference in prompts:
+```bash
+mkdir -p .copilot/skills/packwise/
+cp skill.md audit.md .copilot/skills/packwise/
+cp -r sub-skills/ .copilot/skills/packwise/
 ```
 
 **Any LLM agent** — copy `skill.md` + `sub-skills/` to your project and prompt:

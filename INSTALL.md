@@ -91,6 +91,8 @@ All methods above work across agents. If you need agent-specific configuration:
 | **OpenClaw** | Project `.openclaw/skills/packwise/` | `@packwise/skill.md` |
 | **WorkBuddy** | `~/.workbuddy/skills/packwise/` | `/project:packwise` |
 | **Trae** | Project `.trae/skills/packwise/` | `@packwise/skill.md` |
+| **Hermes** | Config `skills:` section or project dir | Config + natural language |
+| **GitHub Copilot** | Project `.copilot/skills/packwise/` | `@packwise/skill.md` |
 | **Windsurf** | Project root `skills/packwise/` | Auto-reads project docs |
 | **Zed AI** | Project root | Auto-reads context |
 | **Any agent** | Any accessible path | "Read [path]/skill.md" |
