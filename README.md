@@ -3,26 +3,26 @@
 > One skill that turns your AI into a build consultant — scan, recommend, package, and audit any project.
 
 <p align="center">
-  <a href="https://github.com/Thomas520TOM/packwise-skills/stargazers">
-    <img src="https://img.shields.io/github/stars/Thomas520TOM/packwise-skills?style=flat-square&color=yellow&logo=github" alt="GitHub Stars">
+  <a href="https://github.com/Thomas520TOM/packwise-skills/commits/main">
+    <img src="https://img.shields.io/github/last-commit/Thomas520TOM/packwise-skills?style=for-the-badge&logo=github" alt="last commit">
   </a>
   <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&logo=github" alt="license">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&logo=github" alt="license">
   </a>
   <a href="https://github.com/Thomas520TOM/packwise-skills/tree/main/sub-skills">
-    <img src="https://img.shields.io/badge/skills-44-brightgreen?style=flat-square" alt="skills">
+    <img src="https://img.shields.io/badge/skills-44-brightgreen?style=for-the-badge" alt="skills">
   </a>
   <a href="#supported-platforms">
-    <img src="https://img.shields.io/badge/platforms-20%2B-orange?style=flat-square" alt="platforms">
+    <img src="https://img.shields.io/badge/platforms-20%2B-orange?style=for-the-badge" alt="platforms">
   </a>
   <a href="#supported-platforms">
-    <img src="https://img.shields.io/badge/frameworks-40%2B-purple?style=flat-square" alt="frameworks">
+    <img src="https://img.shields.io/badge/frameworks-40%2B-purple?style=for-the-badge" alt="frameworks">
   </a>
   <a href="#tested-framework-versions">
-    <img src="https://img.shields.io/badge/tested-10-success?style=flat-square" alt="tested">
+    <img src="https://img.shields.io/badge/tested-10-success?style=for-the-badge" alt="tested">
   </a>
   <a href="#installation">
-    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=flat-square" alt="works with">
+    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=for-the-badge" alt="works with">
   </a>
 </p>
 <p align="center">
