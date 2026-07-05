@@ -49,6 +49,46 @@ Most AI coding assistants treat build as an afterthought — they suggest a comm
 
 ---
 
+## Quick Demo
+
+```
+You:  > package my Electron app for Windows and macOS
+
+AI:   📋 Project Scan Results:
+      - Framework: Electron 31 + React 18 + Express + SQLite
+      - Language: TypeScript | Complexity: L2
+      Is this correct? [Correct / Add / Exclude / Correct]
+
+You:  ✅ Correct
+
+AI:   [Popup] Target users? → General consumers
+      [Popup] Platform? → Windows + macOS
+      [Popup] Architecture? → Win x64 | macOS Universal
+      ... (17 interactive questions via popups)
+
+AI:   ⭐ RECOMMENDED: Electron 31 + electron-builder
+      Alternative A: Tauri (3-10MB, needs Rust rewrite)
+      Which approach? [Recommended / Alt A / Alt B / Custom]
+
+You:  1
+
+AI:   📋 FINAL BUILD PLAN | Reply 'yes' to start
+
+You:  yes
+
+AI:   [Popup] Logo? → /path/to/icon.png | Crop corners? → Yes
+      [Popup] Output? → ./release/
+      [Popup] Config changes: [1] Add electron-builder.yml [2] ...
+      [Popup] Approve? → Approve all
+
+AI:   🔨 Building... ✅
+      🔒 Audit: No credentials, no .env, no .map
+      📦 MyApp-v1.0.0-windows-x64.exe
+      📦 MyApp-v1.0.0-macos-universal.dmg
+```
+
+---
+
 ## How It Works
 
 A 9-step consultant workflow — the same process a human build engineer follows:
@@ -80,6 +120,7 @@ What makes Packwise different from a generic build command:
 | **Version-verified** | Build commands checked against npm, PyPI, crates.io, official registries |
 | **Selective install** | Install only the skills you need via `--only` |
 | **11 agents** | Claude Code, Cursor, OpenCode, Copilot, and 7 more |
+| **Interactive Q&A** | All questions via popup UI, not text dumps |
 
 ---
 
