@@ -227,10 +227,13 @@ Use `AskUserQuestion` tool with the following options:
 
 **Q3d. Architecture output mode? / 架构输出模式？** (only ask when user selected 2+ architectures for a platform in Q3c / 仅当用户在 Q3c 中为某平台选择了 2 个以上架构时才询问)
 
+> **Interaction flow / 交互流程**: First ask "Separate or Merged?" per platform. If user selects "Separate", follow up with a second AskUserQuestion to select which specific architectures to output. Do NOT try to combine both questions into one call.
+> 先按平台询问"分开还是合并？"。如果用户选择"分开"，再用第二个 AskUserQuestion 选择具体输出哪些架构。不要把两个问题合并在一次调用中。
+
 > This determines how multi-architecture builds are packaged. Based on your Q3c selections, here is what will be output:
 > 决定多架构构建如何打包。根据您在 Q3c 的选择，以下是输出预览：
 
-**Example / 示例:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3b:
+**Example / 示例:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3c:
 
 | Mode / 模式 | Output / 输出 | Count / 数量 |
 |------|--------|:-----:|
@@ -272,19 +275,27 @@ Use `AskUserQuestion` tool with the following options:
 > If user deselects an architecture, it is excluded from the build entirely.
 > 如果用户取消勾选某个架构，该架构将完全不参与构建。
 
-**Q3e. Minimum OS version? / 最低系统版本？**
+**Q3e. Minimum OS version? / 最低系统版本？** (ask for EACH platform selected in Q3a/Q3b / 按 Q3a/Q3b 选择的平台逐个询问)
 
-- **Windows:**
+- **Windows (if selected)?**
   - 1. ⭐ Windows 10 (most common, Electron 31+ requires) / 最常见，Electron 31+ 要求
   - 2. Windows 11
   - 3. Custom / 自定义 → type version in tool / 在工具中输入版本号
-- **macOS:**
+- **macOS (if selected)?**
   - 1. ⭐ macOS 10.15 (Catalina, Electron 31 default) / Electron 31 默认
   - 2. macOS 12 (Monterey)
   - 3. Custom / 自定义 → type version in tool / 在工具中输入版本号
-- **Linux:**
+- **Linux (if selected)?**
   - 1. ⭐ No specific requirement / 无特殊要求
   - 2. Custom / 自定义 → type requirement in tool / 在工具中输入要求
+- **Android (if selected)?**
+  - 1. ⭐ Android 8.0 (API 26, covers 95%+ devices) / 覆盖 95%+ 设备
+  - 2. Android 10 (API 29)
+  - 3. Custom / 自定义 → type API level in tool / 在工具中输入 API 级别
+- **iOS (if selected)?**
+  - 1. ⭐ iOS 15.0 (minimum for modern SwiftUI features) / 现代 SwiftUI 最低要求
+  - 2. iOS 16.0
+  - 3. Custom / 自定义 → type version in tool / 在工具中输入版本号
 
 **Q4. App name? / 应用名称？**
 - 1. ⭐ [detected folder name] / [检测到的文件夹名称]
@@ -315,16 +326,15 @@ Use `AskUserQuestion` tool with the following options:
 - 2. Custom branding / 自定义品牌 → describe in tool / 在工具中描述需求（如自定义欢迎页、背景图、文字颜色等）
 - 3. Minimal / unbranded / 极简无品牌 — 无 logo、无自定义文字，纯功能性安装器
 
-**Q6. Source code protection (anti-reverse-engineering)? / 源码保护（防反编译）？**
+**Q6. Source code protection level? / 源码保护等级？**
 
-> This determines how hard it is for someone to decompile and read your source code from the packaged app.
-> 决定他人从安装包中反编译和读取源码的难度。
+> This determines how hard it is for someone to decompile and read your source code.
+> 决定他人反编译和读取源码的难度。
 
-- 1. ⭐ **Standard packaging / 标准打包** — Code bundled but extractable / 代码打包但可提取（Electron: ASAR; Tauri: 已编译的 Rust，反编译难度高）
-- 2. **Obfuscation / 代码混淆** — JS/TS code scrambled / 代码混淆（变量名混淆、控制流平坦化），需数分钟至数小时反编译，增加约 1 分钟构建时间
-- 3. **Bytecode compilation / 字节码编译** — Compiled to V8 bytecode / 编译为 V8 字节码（.jsc），不可读为文本，需匹配 Electron 的 Node.js 版本，增加约 2 分钟构建时间（仅 Electron）
-- 4. **Full protection / 完整保护** — ASAR + obfuscation + AES-256-CBC encryption + image embedding / ASAR + 混淆 + AES 加密 + 图片嵌入，推荐商业软件使用，增加约 5 分钟构建时间
-- 5. **None / 不保护** — Open source project / 开源项目，无需保护
+- 1. ⭐ **Standard / 标准** — Code bundled (ASAR for Electron; Rust compiled for Tauri) / 代码打包（Electron: ASAR; Tauri: 已编译 Rust，反编译难度高）
+- 2. **Obfuscation / 混淆** — JS/TS code scrambled, adds ~1 min build time / 代码混淆，增加约 1 分钟构建时间
+- 3. **Full protection / 完整保护** — Obfuscation + AES encryption + image embedding, adds ~5 min / 混淆 + AES 加密 + 图片嵌入，增加约 5 分钟
+- 4. **None / 不保护** — Open source, no protection needed / 开源项目，无需保护
 
 **Q7. Clear test data and hardcoded keys? / 清除测试数据和硬编码密钥？**
 - 1. ⭐ Yes, clean everything / 是，全部清除
@@ -332,8 +342,8 @@ Use `AskUserQuestion` tool with the following options:
 
 **Q8. Code signing? / 代码签名？**
 - 1. ⭐ Yes, I have certificates / 是，我有证书
-- 2. No signing (will show security warnings) / 不签名（将显示安全警告）
-- 3. Help me understand / 帮我了解需要什么
+- 2. No signing (will show security warnings to users) / 不签名（用户将看到安全警告）
+- 3. Not yet, guide me through the process / 还没有，引导我完成申请流程
 
 **Q9. Auto-update and release type? / 自动更新与发布类型？**
 - 1. ⭐ First publish + auto-update / 首次发布 + 自动更新
