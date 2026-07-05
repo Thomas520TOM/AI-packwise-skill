@@ -185,10 +185,21 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 
 > All selected architecture packages will be output to the same target folder (Q11).
 
-**Q4. App name, version, copyright holder?**
+**Q4. App name?**
+- 1. ⭐ Use project folder name
+- 2. Custom → after selecting, type the name in chat
+
+**Q4b. Version?**
+- 1. ⭐ 1.0.0
+- 2. Use package.json version (if exists)
+- 3. Custom → after selecting, type the version in chat
+
+**Q4c. Copyright holder?**
+- 1. ⭐ Use git config user.name (if available)
+- 2. Custom → after selecting, type the name in chat
 
 **Q5. Logo/icon ready?**
-- 1. ⭐ Yes, I have icons → Ask for path, format, sizes
+- 1. ⭐ Yes, I have icons → after selecting, type the file path in chat
 - 2. Need to generate → Recommend tool based on platform
 - 3. Use default → Not recommended for production
 
@@ -217,10 +228,11 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 
 **Q10. Output location?**
 - 1. ⭐ `./release/` (default)
-- 2. Custom path
+- 2. Custom → after selecting, type the path in chat
 
 **Q11. Any special requirements?**
-- (Open-ended: custom protocol, system tray, multi-window, offline-first, etc.)
+- 1. ⭐ None
+- 2. Custom → after selecting, type the requirements in chat
 
 ---
 
