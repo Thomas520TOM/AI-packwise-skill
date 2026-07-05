@@ -54,25 +54,25 @@ Most AI coding assistants treat build as an afterthought — they suggest a comm
 ```
 You:  > package my Electron app for Windows and macOS
 
-AI:   📋 Project Scan Results:
+AI:   Scan Results:
       - Framework: Electron 31 + React 18 + Express + SQLite
       - Language: TypeScript | Complexity: L2
       Is this correct? [Correct / Add / Exclude / Correct]
 
-You:  ✅ Correct
+You:  Correct
 
 AI:   [Popup] Target users? → General consumers
       [Popup] Platform? → Windows + macOS
       [Popup] Architecture? → Win x64 | macOS Universal
       ... (17 interactive questions via popups)
 
-AI:   ⭐ RECOMMENDED: Electron 31 + electron-builder
+AI:   RECOMMENDED: Electron 31 + electron-builder
       Alternative A: Tauri (3-10MB, needs Rust rewrite)
       Which approach? [Recommended / Alt A / Alt B / Custom]
 
 You:  1
 
-AI:   📋 FINAL BUILD PLAN | Reply 'yes' to start
+AI:   FINAL BUILD PLAN | Reply 'yes' to start
 
 You:  yes
 
@@ -81,17 +81,18 @@ AI:   [Popup] Logo? → /path/to/icon.png | Crop corners? → Yes
       [Popup] Config changes: [1] Add electron-builder.yml [2] ...
       [Popup] Approve? → Approve all
 
-AI:   🔨 Building... ✅
-      🔒 Audit: No credentials, no .env, no .map
-      📦 MyApp-v1.0.0-windows-x64.exe
-      📦 MyApp-v1.0.0-macos-universal.dmg
+AI:   Building... Done
+      Audit: No credentials, no .env, no .map
+      Output:
+        MyApp-v1.0.0-windows-x64.exe
+        MyApp-v1.0.0-macos-universal.dmg
 ```
 
 ---
 
 ## How It Works
 
-A 9-step consultant workflow — the same process a human build engineer follows:
+A **9-step build workflow**:
 
 | Step | Action | Result |
 |:----:|--------|--------|
@@ -116,7 +117,7 @@ What makes Packwise different from a generic build command:
 | **44 sub-skills** | Platform-specific knowledge, not generic advice |
 | **20+ platforms** | Desktop, mobile, web, backend, AI/ML, CLI, plugins, embedded, cloud |
 | **Mandatory security** | Every build ends with a credential and integrity audit |
-| **Consultant workflow** | Never auto-builds — recommends, confirms, then executes |
+| **Consultant workflow** | Recommends, confirms, then executes — no auto-builds |
 | **Version-verified** | Build commands checked against npm, PyPI, crates.io, official registries |
 | **Selective install** | Install only the skills you need via `--only` |
 | **11 agents** | Claude Code, Cursor, OpenCode, Copilot, and 7 more |
@@ -169,7 +170,7 @@ Then invoke in your AI agent:
 
 ### Selective Installation
 
-Only need certain platforms? Use `--only` to install specific sub-skills. Core files (`skill.md`, `audit.md`, `CLAUDE.md`) are always installed.
+Install only the sub-skills you need with `--only`. Core files (`skill.md`, `audit.md`, `CLAUDE.md`) are always installed.
 
 **By category:**
 ```bash
