@@ -183,7 +183,39 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 - **iOS architecture?**
   - 1. ⭐ ARM64 (all modern Apple devices, automatic)
 
-> All selected architecture packages will be output to the same target folder (Q11).
+> All selected architecture packages will be output to the same target folder (Q13).
+
+**Q3c. Architecture output mode?**
+
+> This determines how multi-architecture builds are packaged.
+
+- **Windows (if x64 + ARM64 selected in Q3b)?**
+  - 1. ⭐ Separate installers — one `.exe` per architecture, user downloads matching version
+  - 2. Single installer — merged into one installer that supports both architectures
+- **macOS (if Universal Binary NOT selected in Q3b)?**
+  - 1. ⭐ Separate `.dmg` files — one per architecture
+  - 2. Single `.dmg` — merged installer
+- **Linux (if x64 + ARM64 selected in Q3b)?**
+  - 1. ⭐ Separate packages — one `.deb` / `.AppImage` per architecture
+  - 2. Single package — merged
+
+> **Naming convention** (auto-applied for separate output):
+> `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+> Examples: `MyApp-v1.0.0-windows-x64.exe`, `MyApp-v1.0.0-macos-arm64.dmg`, `MyApp-v1.0.0-linux-x64.AppImage`
+
+**Q3d. Minimum OS version?**
+
+- **Windows:**
+  - 1. ⭐ Windows 10 (most common, Electron 31+ requires it)
+  - 2. Windows 11
+  - 3. Custom → after selecting, type the version in chat
+- **macOS:**
+  - 1. ⭐ macOS 10.15 (Catalina, Electron 31 default)
+  - 2. macOS 12 (Monterey)
+  - 3. Custom → after selecting, type the version in chat
+- **Linux:**
+  - 1. ⭐ No specific requirement
+  - 2. Custom → after selecting, type the requirement in chat
 
 **Q4. App name?**
 - 1. ⭐ Use project folder name
@@ -197,6 +229,26 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 **Q4c. Copyright holder?**
 - 1. ⭐ Use git config user.name (if available)
 - 2. Custom → after selecting, type the name in chat
+
+**Q4d. Language / Localization?**
+- 1. ⭐ English only (default)
+- 2. Chinese (Simplified)
+- 3. Chinese (Traditional)
+- 4. Multi-language (English + Chinese)
+- 5. Custom → after selecting, type the languages in chat
+
+**Q4e. License file?**
+- 1. ⭐ MIT (auto-detect from LICENSE file if exists)
+- 2. Apache 2.0
+- 3. GPL v3
+- 4. Proprietary / Commercial
+- 5. Custom → after selecting, type the license in chat
+- 6. None — do not include license in package
+
+**Q4f. Installer UI customization?**
+- 1. ⭐ Default theme (clean, standard look)
+- 2. Custom branding → after selecting, describe your requirements in chat (e.g., custom welcome screen, background image, text colors)
+- 3. Minimal / unbranded — no logo, no custom text, just functional installer
 
 **Q5. Logo/icon ready?**
 - 1. ⭐ Yes, I have icons → after selecting, type the file path in chat
@@ -226,9 +278,16 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 - 1. ⭐ Yes
 - 2. No
 
+**Q9b. Is this a first publish or an update to an existing app?**
+- 1. ⭐ First publish — fresh release, no existing users
+- 2. Update — existing app with users who need seamless upgrade
+- 3. Not sure → I'll guide you
+
 **Q10. Output location?**
 - 1. ⭐ `./release/` (default)
 - 2. Custom → after selecting, type the path in chat
+
+> When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
 
 **Q11. Any special requirements?**
 - 1. ⭐ None
