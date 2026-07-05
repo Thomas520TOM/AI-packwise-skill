@@ -187,21 +187,36 @@ The LLM MUST verify that all required dependencies for the detected framework ar
 
 **Q3c. Architecture output mode?**
 
-> This determines how multi-architecture builds are packaged.
+> This determines how multi-architecture builds are packaged. Based on your Q3b selections, here is what will be output:
+
+**Example:** If you selected Windows (x64 + ARM64) + macOS (Universal Binary) in Q3b:
+
+| Mode | Output | Count |
+|------|--------|:-----:|
+| **Separate** | `MyApp-v1.0.0-windows-x64.exe` + `MyApp-v1.0.0-windows-arm64.exe` + `MyApp-v1.0.0-macos-universal.dmg` | 3 files |
+| **Merged** | `MyApp-v1.0.0-windows.exe` (x64+ARM64) + `MyApp-v1.0.0-macos-universal.dmg` | 2 files |
 
 - **Windows (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate installers — one `.exe` per architecture, user downloads matching version
-  - 2. Single installer — merged into one installer that supports both architectures
+  - 1. ⭐ Separate — one `.exe` per architecture, user downloads matching version
+  - 2. Merged — single installer that supports both architectures
 - **macOS (if Universal Binary NOT selected in Q3b)?**
-  - 1. ⭐ Separate `.dmg` files — one per architecture
-  - 2. Single `.dmg` — merged installer
+  - 1. ⭐ Separate — one `.dmg` per architecture
+  - 2. Merged — single `.dmg`
 - **Linux (if x64 + ARM64 selected in Q3b)?**
-  - 1. ⭐ Separate packages — one `.deb` / `.AppImage` per architecture
-  - 2. Single package — merged
+  - 1. ⭐ Separate — one `.deb` / `.AppImage` per architecture
+  - 2. Merged — single package
 
 > **Naming convention** (auto-applied for separate output):
 > `[AppName]-v[Version]-[OS]-[Arch].[ext]`
 > Examples: `MyApp-v1.0.0-windows-x64.exe`, `MyApp-v1.0.0-macos-arm64.dmg`, `MyApp-v1.0.0-linux-x64.AppImage`
+
+> **After user selects, show final output list** before proceeding:
+> ```
+> 📦 Build output (3 files):
+>   1. MyApp-v1.0.0-windows-x64.exe     (Windows x64)
+>   2. MyApp-v1.0.0-windows-arm64.exe   (Windows ARM64)
+>   3. MyApp-v1.0.0-macos-universal.dmg (macOS Universal)
+> ```
 
 **Q3d. Minimum OS version?**
 
