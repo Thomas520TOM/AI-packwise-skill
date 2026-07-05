@@ -291,16 +291,5 @@ This project is licensed under the [MIT License](LICENSE).
   Built with care for the AI-assisted development community.
   <br><br>
   <a href="https://github.com/Thomas520TOM/packwise-skills">GitHub</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/issues">Issues</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/INSTALL.md">Install Guide</a>
-  <br><br>
-  <a href="https://github.com/Thomas520TOM/packwise-skills">
-    <img src="https://img.shields.io/badge/🤖%20built%20for-Claude%20Code-black?style=for-the-badge" alt="built for Claude Code">
-  </a>
-  &nbsp;
-  <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-☕-gray?style=for-the-badge&labelColor=gray&color=orange" alt="Buy Me a Coffee">
-  </a>
-  &nbsp;
-  <a href="https://github.com/sponsors/Thomas520TOM" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub%20Sponsors-❤️-gray?style=for-the-badge&labelColor=gray&color=pink" alt="GitHub Sponsors">
-  </a>
+  <br>
 </div>
