@@ -375,7 +375,22 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 | **Signing prerequisites** | No signing certificates configured, missing env vars |
 | **Framework-specific requirements** | iOS: no `ExportOptions.plist`; Tauri: Rust toolchain not detected |
 
-> **Logo / Icon handling**: The build process MUST NOT assume or auto-generate app icons. The LLM MUST ask the user to provide the logo file and specify its path. After receiving the path, the LLM should also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon?"* If the user agrees, the LLM should process the image accordingly (platform-specific formats: `.ico` for Windows, `.icns` for macOS, PNG for Linux/mobile). If no logo is provided, skip icon configuration and warn the user that the build will use default/placeholder icons.
+#### 6b. Ask User Preferences
+
+Before presenting the modification plan, the LLM MUST ask the following questions:
+
+1. **Output location** — Where should the final build artifacts be placed?
+   - Default: `./release/` (or `./dist/` depending on framework)
+   - Let the user specify a custom path if needed
+
+2. **Encryption / Protection** — Does the user want to protect the build output?
+   - Options may include: ASAR encryption (Electron), code obfuscation, binary stripping, upx compression
+   - If the user wants protection, add the relevant tools/config to the modification plan
+   - If not needed, skip and proceed
+
+3. **Logo / Icon** — Ask the user to provide the logo file path
+   - Also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon?"*
+   - If no logo is provided, warn that default/placeholder icons will be used
 
 #### 6b. Present Modification Plan
 
@@ -384,7 +399,14 @@ Present ALL required changes to the user in a structured checklist **before maki
 ```
 📋 Pre-Build Preparation — [Framework] [Platform]
 
-The following changes are needed before building:
+Before proceeding, please confirm:
+
+  Output location:  ./release/ (default) or specify a custom path?
+  Encryption:       Do you need build output protection? (ASAR, obfuscation, etc.)
+  App icon:         Please provide the logo file path
+                    → Crop and round corners for installer icon? (yes/no)
+
+The following config changes are also needed:
 
  [1] Add file: electron-builder.yml
      → Configures NSIS installer, code signing, auto-update
@@ -392,10 +414,8 @@ The following changes are needed before building:
      → Required build tool for packaging
  [3] Modify: package.json → add "build" script
      → "build": "electron-builder --win --mac"
- [4] App icon: Please provide the logo file path
-     → Do you want me to crop and round the corners for the installer icon? (yes/no)
 
- Reply with numbers to approve (e.g., "1,2,3,4" or "all"),
+ Reply with your preferences above and numbers to approve config changes,
  or tell me which to skip.
 ```
 
