@@ -4,6 +4,15 @@ set -e
 REPO="https://github.com/Thomas520TOM/packwise-skills.git"
 SKILL_NAME="packwise-skills"
 
+# Parse --only flag
+ONLY=""
+for arg in "$@"; do
+  if [ "$prev" = "--only" ]; then
+    ONLY="$arg"
+  fi
+  prev="$arg"
+done
+
 # Colors
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -36,15 +45,40 @@ echo -e "📦 Detected agent: ${YELLOW}${AGENT}${NC}"
 echo -e "📁 Install path:   ${INSTALL_PATH}"
 echo ""
 
-# Create directory and clone
-mkdir -p "$(dirname "$INSTALL_PATH")"
+# Create directory and clone to temp location
+TMP_DIR=$(mktemp -d)
+git clone --depth 1 "$REPO" "$TMP_DIR" > /dev/null 2>&1
 
-if [ -d "$INSTALL_PATH" ]; then
-  echo "⚠️  Directory already exists, pulling latest..."
-  cd "$INSTALL_PATH" && git pull
+# Create target directory
+mkdir -p "$INSTALL_PATH"
+
+# Always copy core files
+cp "$TMP_DIR/skill.md" "$INSTALL_PATH/"
+cp "$TMP_DIR/audit.md" "$INSTALL_PATH/"
+cp "$TMP_DIR/CLAUDE.md" "$INSTALL_PATH/"
+
+# Copy sub-skills (selective or full)
+if [ -n "$ONLY" ]; then
+  echo "  Selective install: $ONLY"
+  echo "  (skill.md, audit.md, CLAUDE.md are always included)"
+  echo ""
+  IFS=',' read -ra CATEGORIES <<< "$ONLY"
+  mkdir -p "$INSTALL_PATH/sub-skills"
+  for cat in "${CATEGORIES[@]}"; do
+    cat=$(echo "$cat" | tr -d ' ')
+    if [ -d "$TMP_DIR/sub-skills/$cat" ]; then
+      cp -r "$TMP_DIR/sub-skills/$cat" "$INSTALL_PATH/sub-skills/"
+      echo "  ✓ Installed sub-skills/$cat"
+    else
+      echo "  ⚠ Category not found: $cat"
+    fi
+  done
 else
-  git clone "$REPO" "$INSTALL_PATH"
+  cp -r "$TMP_DIR/sub-skills" "$INSTALL_PATH/"
 fi
+
+# Cleanup
+rm -rf "$TMP_DIR"
 
 echo ""
 echo -e "${GREEN}✅ packwise-skills installed successfully!${NC}"

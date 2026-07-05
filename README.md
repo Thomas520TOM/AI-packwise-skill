@@ -85,20 +85,27 @@ Packwise is more than a build script. It's a **complete packaging intelligence l
 
 ## Installation
 
+### npx (No Install Required)
+
+Run directly without installing globally:
+
+```bash
+npx packwise-skills
+```
+
 ### npm (Recommended)
 
 ```bash
 npm install -g packwise-skills
 ```
 
-Then invoke in your AI agent:
+### Curl One-liner
 
-```
-> package my Electron app for Windows
+```bash
+curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash
 ```
 
-<details>
-<summary><strong>Git clone</strong> — install from source</summary>
+### Git Clone
 
 ```bash
 # User-level (all projects)
@@ -110,15 +117,40 @@ cd your-project/
 mkdir -p .claude/skills/
 git clone https://github.com/Thomas520TOM/packwise-skills.git .claude/skills/packwise
 ```
-</details>
 
-<details>
-<summary><strong>Curl one-liner</strong> — install with a single command</summary>
+Then invoke in your AI agent:
+
+```
+> package my Electron app for Windows
+```
+
+---
+
+### Selective Installation
+
+Only need certain platforms? Use `--only` to install specific sub-skills. Core files (`skill.md`, `audit.md`, `CLAUDE.md`) are always installed.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash
+# Desktop + Mobile only
+npx packwise-skills --only desktop,mobile
+
+# Backend + Cloud only
+npx packwise-skills --only backend,cloud
+
+# AI/ML + CLI only
+npx packwise-skills --only ai,cli
 ```
-</details>
+
+Works with curl too:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash -s -- --only desktop,mobile
+```
+
+**Available categories:**
+`desktop` `mobile` `web` `backend` `ai` `cli` `plugins` `embedded` `security` `cloud` `cross-platform`
+
+---
 
 <details>
 <summary><strong>Other AI tools</strong> — OpenCode, Cursor, Hermes, Codex CLI, WorkBuddy</summary>

@@ -6,18 +6,22 @@
  * Detects installed AI agents and copies skill files to the right location.
  *
  * Usage:
- *   npx @anthropic-ai/packwise          # Auto-detect and install
- *   npx @anthropic-ai/packwise install   # Same as above
- *   npx @anthropic-ai/packwise uninstall # Remove from all detected agents
- *   npx @anthropic-ai/packwise list      # Show which agents have skills installed
+ *   npx packwise-skills                        # Auto-detect and install all skills
+ *   npx packwise-skills install                # Same as above
+ *   npx packwise-skills --only desktop,mobile  # Install only specific sub-skills
+ *   npx packwise-skills uninstall              # Remove from all detected agents
+ *   npx packwise-skills list                   # Show which agents have skills installed
+ *
+ * Available sub-skill categories:
+ *   desktop, mobile, web, backend, ai, cli, plugins, embedded, security, cloud, cross-platform
  */
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const SKILL_FILES = ['skill.md', 'audit.md'];
-const SKILL_DIRS = ['sub-skills'];
+const CORE_FILES = ['skill.md', 'audit.md', 'CLAUDE.md'];
+const ALL_CATEGORIES = ['desktop', 'mobile', 'web', 'backend', 'ai', 'cli', 'plugins', 'embedded', 'security', 'cloud', 'cross-platform'];
 const HOME = os.homedir();
 const CWD = process.cwd();
 
@@ -56,14 +60,42 @@ const AGENTS = [
   },
 ];
 
-function copyRecursive(src, dest) {
+// Parse --only flag
+const onlyIndex = process.argv.indexOf('--only');
+const onlyCategories = onlyIndex !== -1
+  ? process.argv[onlyIndex + 1]?.split(',').map(c => c.trim().toLowerCase())
+  : null;
+
+if (onlyCategories) {
+  const invalid = onlyCategories.filter(c => !ALL_CATEGORIES.includes(c));
+  if (invalid.length) {
+    console.log(`\n  Unknown categories: ${invalid.join(', ')}`);
+    console.log(`  Available: ${ALL_CATEGORIES.join(', ')}\n`);
+    process.exit(1);
+  }
+}
+
+// Parse command (skip --only and its value)
+const args = process.argv.filter((a, i) => {
+  if (i <= 1) return false; // skip node and script path
+  if (a === '--only') return false;
+  if (onlyIndex !== -1 && i === onlyIndex + 1) return false;
+  return true;
+});
+const command = args[0] || 'install';
+
+function copyFile(src, dest) {
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.copyFileSync(src, dest);
+}
+
+function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   for (const item of fs.readdirSync(src)) {
     const srcPath = path.join(src, item);
     const destPath = path.join(dest, item);
-    const stat = fs.statSync(srcPath);
-    if (stat.isDirectory()) {
-      copyRecursive(srcPath, destPath);
+    if (fs.statSync(srcPath).isDirectory()) {
+      copyDir(srcPath, destPath);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -76,11 +108,41 @@ function removeRecursive(dir) {
   }
 }
 
-const command = process.argv[2] || 'install';
-const sourceDir = path.join(__dirname, '..');
+function installTo(target) {
+  const sourceDir = path.join(__dirname, '..');
+
+  // Always copy core files
+  for (const file of CORE_FILES) {
+    const src = path.join(sourceDir, file);
+    if (fs.existsSync(src)) copyFile(src, path.join(target, file));
+  }
+
+  // Copy sub-skills
+  const subSkillsSrc = path.join(sourceDir, 'sub-skills');
+  if (fs.existsSync(subSkillsSrc)) {
+    if (onlyCategories) {
+      // Selective install
+      for (const cat of onlyCategories) {
+        const catSrc = path.join(subSkillsSrc, cat);
+        if (fs.existsSync(catSrc)) {
+          copyDir(catSrc, path.join(target, 'sub-skills', cat));
+        }
+      }
+    } else {
+      // Install all
+      copyDir(subSkillsSrc, path.join(target, 'sub-skills'));
+    }
+  }
+}
+
 
 if (command === 'install' || command === undefined) {
   console.log('\n  Packwise — Universal Build & Packaging Skills\n');
+
+  if (onlyCategories) {
+    console.log(`  Selective install: ${onlyCategories.join(', ')}`);
+    console.log(`  (skill.md, audit.md, CLAUDE.md are always included)\n`);
+  }
 
   const installed = [];
   let installedAny = false;
@@ -95,17 +157,16 @@ if (command === 'install' || command === undefined) {
     if (!target) continue;
 
     console.log(`  Installing for ${agent.name}...`);
-    copyRecursive(sourceDir, target);
+    installTo(target);
     console.log(`  ✓ Installed to ${target}`);
     installed.push(agent.name);
     installedAny = true;
   }
 
   if (!installedAny) {
-    // Fallback: install to project root skills/ directory
     const fallback = path.join(CWD, 'skills', 'packwise');
     console.log('  No AI agents detected. Installing to project...');
-    copyRecursive(sourceDir, fallback);
+    installTo(fallback);
     console.log(`  ✓ Installed to ${fallback}`);
     console.log(`\n  Reference in your AI agent:`);
     console.log(`    "Read ${path.relative(CWD, fallback)}/skill.md and help me package this project"`);
@@ -143,13 +204,13 @@ else if (command === 'list') {
     }
   }
   if (!found) {
-    console.log('  No installations found. Run: npx @anthropic-ai/packwise install');
+    console.log('  No installations found. Run: npx packwise-skills install');
   }
   console.log('');
 }
 
 else {
   console.log(`\n  Unknown command: ${command}`);
-  console.log('  Usage: npx @anthropic-ai/packwise [install|uninstall|list]\n');
+  console.log('  Usage: npx packwise-skills [install|uninstall|list] [--only desktop,mobile]\n');
   process.exit(1);
 }
