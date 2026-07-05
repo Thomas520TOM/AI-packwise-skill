@@ -375,6 +375,8 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 | **Signing prerequisites** | No signing certificates configured, missing env vars |
 | **Framework-specific requirements** | iOS: no `ExportOptions.plist`; Tauri: Rust toolchain not detected |
 
+> **Logo / Icon handling**: The build process MUST NOT assume or auto-generate app icons. The LLM MUST ask the user to provide the logo file and specify its path. After receiving the path, the LLM should also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon?"* If the user agrees, the LLM should process the image accordingly (platform-specific formats: `.ico` for Windows, `.icns` for macOS, PNG for Linux/mobile). If no logo is provided, skip icon configuration and warn the user that the build will use default/placeholder icons.
+
 #### 6b. Present Modification Plan
 
 Present ALL required changes to the user in a structured checklist **before making any changes**:
@@ -390,8 +392,8 @@ The following changes are needed before building:
      → Required build tool for packaging
  [3] Modify: package.json → add "build" script
      → "build": "electron-builder --win --mac"
- [4] Add file: build/icon.ico (256x256)
-     → App icon for Windows installer
+ [4] App icon: Please provide the logo file path
+     → Do you want me to crop and round the corners for the installer icon? (yes/no)
 
  Reply with numbers to approve (e.g., "1,2,3,4" or "all"),
  or tell me which to skip.
