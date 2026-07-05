@@ -97,7 +97,7 @@ A **9-step build workflow**:
 | Step | Action | Result |
 |:----:|--------|--------|
 | **1** | **Scan** — detect framework, language, dependencies, `.env` files | Project analysis |
-| **2** | **Intake** — build overview confirmation, then 17 structured questions | User preferences |
+| **2** | **Intake** — build overview confirmation, then 18 questions (some per-platform) | User preferences |
 | **3** | **Analyze** — combine scan + answers + online research (if needed) | Strategy options |
 | **4** | **Recommend** — present best approach with reasoning + alternatives | Decision support |
 | **5** | **Confirm** — user selects, final build plan generated | Confirmed plan |
@@ -280,7 +280,7 @@ skill.md (Main Orchestrator)
 │
 ├─ 1. Scan ─────────── Detect framework, language, deps, env
 │
-├─ 2. Intake ────────── Build overview → confirm scope → ask 17 questions
+├─ 2. Intake ────────── Build overview → confirm scope → ask 18 questions
 │
 ├─ 3. Analyze ───────── Combine scan + answers + online research
 │
