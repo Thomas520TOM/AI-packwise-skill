@@ -1,237 +1,174 @@
-# Packwise
+# packwise-skills
 
-> **Turn any LLM session into a professional build consultant.**
-> Scan → Intake → Analyze → Recommend → Confirm → Execute → Audit → Report.
+> One skill that turns your AI into a build consultant — scan, recommend, package, and audit any project.
 
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Skills](https://img.shields.io/badge/skills-44-brightgreen)
-![Platforms](https://img.shields.io/badge/platforms-20+-orange)
-![Frameworks](https://img.shields.io/badge/frameworks-40+-purple)
-![Tested](https://img.shields.io/badge/tested-10-success)
-![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-yellow)
-![OpenCode](https://img.shields.io/badge/OpenCode-ready-yellow)
-![npm](https://img.shields.io/badge/npm-install_--g%20@anthropic--ai%2Fpackwise-lightgrey)
+<p align="center">
+  <a href="https://github.com/Thomas520TOM/packwise-skills/stargazers">
+    <img src="https://img.shields.io/github/stars/Thomas520TOM/packwise-skills?style=flat-square&color=yellow&logo=github" alt="GitHub Stars">
+  </a>
+  <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&logo=github" alt="license">
+  </a>
+  <a href="https://github.com/Thomas520TOM/packwise-skills/tree/main/sub-skills">
+    <img src="https://img.shields.io/badge/skills-44-brightgreen?style=flat-square" alt="skills">
+  </a>
+  <a href="#supported-platforms">
+    <img src="https://img.shields.io/badge/platforms-20%2B-orange?style=flat-square" alt="platforms">
+  </a>
+  <a href="#supported-platforms">
+    <img src="https://img.shields.io/badge/frameworks-40%2B-purple?style=flat-square" alt="frameworks">
+  </a>
+  <a href="#tested-framework-versions">
+    <img src="https://img.shields.io/badge/tested-10-success?style=flat-square" alt="tested">
+  </a>
+  <a href="#installation">
+    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=flat-square" alt="works with">
+  </a>
+</p>
 
 ---
 
-**Packwise** is a universal build & packaging skill pack for AI-assisted development. Instead of one general-purpose assistant guessing at build commands, Packwise gives your AI a complete consultancy workflow — scanning projects, asking the right questions, recommending solutions with reasoning, and executing builds with mandatory security audits.
-
-Works with **Claude Code, OpenCode, Hermes, WorkBuddy, Codex CLI, and other LLM-powered tools**.
-
-## Table of Contents
-
-- [Why This Exists](#why-this-exists)
-- [Quick Start](#quick-start)
-- [Installation](#installation)
-- [How It Works](#how-it-works)
-- [Supported Platforms](#supported-platforms)
-- [Architecture](#architecture)
-- [Security Model](#security-model)
-- [What's Inside](#whats-inside)
-- [Contributing](#contributing)
-- [License](#license)
+**Packwise** is a universal build & packaging skill for AI-assisted development.  Instead of your AI guessing at build commands and hoping for the best, Packwise gives it a structured, consultant-grade workflow that scans your project, asks the right questions, recommends solutions with reasoning, and executes builds with mandatory security audits — across 20+ platforms and 40+ frameworks.
 
 ---
 
 ## Why This Exists
 
-Building and packaging software is tedious, error-prone, and full of version-specific traps. A generic LLM might suggest outdated commands or miss critical security steps.
+Packaging software is where most AI coding assistants fail. They suggest outdated flags, forget platform-specific quirks, skip credential scans, and have no concept of a proper build plan. **Packwise fixes this** by turning your AI into a structured build consultant with real domain knowledge.
 
-**Packwise** solves this by giving your AI a structured build workflow:
+<div align="center">
 
 | Without Packwise | With Packwise |
-|-----------------|---------------|
-| "Try running `npm run build`" | Scans project → identifies framework/version → recommends approach with reasoning |
-| No security checks | Mandatory credential scan, .env detection, source map cleanup |
-| Guesses at platform differences | Asks about target platform, architecture, signing, output location |
-| One-shot answer | Consultant-style: recommend → alternatives → user confirms → execute |
-| No post-build verification | Mandatory audit: credentials, package integrity, file structure |
+|:---:|:---:|
+| `"Try running npm run build"` | Scans project → identifies framework/version → recommends with reasoning |
+| No security checks | Mandatory credential scan, `.env` detection, source map cleanup |
+| Guesses platform differences | Asks target platform, arch, signing, output — all upfront |
+| One-shot answer | Full workflow: recommend → alternatives → confirm → execute |
+| No post-build verification | Mandatory audit: credentials, integrity, file structure |
 
----
-
-## Quick Install
-
-### Option A: npm (Recommended)
-
-```bash
-npm install -g @anthropic-ai/packwise
-```
-
-Then tell your AI agent:
-```
-> package my Electron app for Windows
-```
-
-### Option B: Git Clone
-
-```bash
-cd ~/.claude/skills/ && git clone https://github.com/Thomas520TOM/AI-packwise-skill.git packwise
-```
-
-### Option C: One-liner (curl)
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/AI-packwise-skill/main/install.sh | bash
-```
-
-See [INSTALL.md](INSTALL.md) for full instructions per AI agent (Claude Code, OpenCode, Hermes, Cursor, Codex CLI, etc.).
-
----
-
-## Installation
-
-### Claude Code (Recommended)
-
-Packwise works natively with Claude Code's skill system.
-
-**Option A: User-level (all projects)**
-```bash
-cd ~/.claude/
-git clone https://github.com/Thomas520TOM/AI-packwise-skill.git skills/packwise
-```
-
-**Option B: Project-level (this project only)**
-```bash
-cd your-project/
-mkdir -p .claude/skills/
-git clone https://github.com/Thomas520TOM/AI-packwise-skill.git .claude/skills/packwise
-```
-
-**Option C: Manual file copy**
-```bash
-# Copy skill.md and sub-skills/ to your project
-cp skill.md /path/to/your-project/.claude/skills/packwise-skill.md
-cp -r sub-skills/ /path/to/your-project/.claude/skills/packwise-sub-skills/
-```
-
-After installation, invoke the skill in Claude Code:
-```
-> package my Electron app
-> build my Tauri project for Windows and macOS
-> help me package this Python CLI tool
-```
-
----
-
-### OpenCode
-
-OpenCode uses a `.opencode/` directory for skills.
-
-```bash
-# Create skill directory
-mkdir -p .opencode/skills/packwise/
-
-# Copy skill files
-cp skill.md audit.md .opencode/skills/packwise/
-cp -r sub-skills/ .opencode/skills/packwise/
-```
-
-In OpenCode, reference the skill in your prompt:
-```
-@packwise/package-skill.md help me package this project
-```
-
----
-
-### Hermes (LlamaIndex / LangChain Agents)
-
-Hermes loads skills from a configured skills directory.
-
-```bash
-# Option 1: Add to Hermes config
-# In hermes.config.yaml, add:
-skills:
-  - path: /path/to/packwise/
-    name: packwise
-
-# Option 2: Copy to project
-cp skill.md /path/to/your-project/skills/packwise.md
-cp -r sub-skills/ /path/to/your-project/skills/packwise-sub-skills/
-```
-
----
-
-### WorkBuddy
-
-WorkBuddy supports skills via its plugin/skill configuration.
-
-```bash
-# Copy to WorkBuddy skills directory
-cp skill.md ~/.workbuddy/skills/packwise.md
-cp -r sub-skills/ ~/.workbuddy/skills/packwise-sub-skills/
-```
-
-Or reference in your project:
-```
-/project:packwise package this Node.js app
-```
-
----
-
-### Codex CLI
-
-Codex CLI uses project-level documentation as context.
-
-```bash
-# Add to project root
-cp skill.md PACKWISE.md
-cp -r sub-skills/ ./skills/
-
-# Codex reads PACKWISE.md as context automatically
-```
-
----
-
-### Other LLM Agents
-
-For any LLM-based tool that reads project files:
-
-```bash
-# 1. Copy skill.md to your project root (or a skills/ directory)
-cp skill.md /your/project/skills/package-skill.md
-
-# 2. Copy the sub-skills directory
-cp -r sub-skills/ /your/project/skills/package-sub-skills/
-
-# 3. Reference it in your prompt
-"Read skills/package-skill.md and help me package this project"
-```
+</div>
 
 ---
 
 ## How It Works
 
-Packwise follows a **consultant-style 8-step workflow**:
+Packwise runs a **consultant-style 8-step workflow** — the same process a human build engineer would follow:
 
-| Step | What Happens | Output |
-|------|-------------|--------|
-| 1. **Scan** | Detect framework, language, dependencies, env files | Project analysis |
-| 2. **Intake** | Report findings → ask 12 structured questions | User preferences |
-| 3. **Analyze** | Combine scan + answers + online research (if needed) | Strategy options |
-| 4. **Recommend** ⭐ | Present BEST approach with reasoning + 2-3 alternatives | Decision support |
-| 5. **Confirm** | User selects → generate final build plan | Confirmed plan |
-| 6. **Execute** | Load sub-skill → run build commands | Installers/packages |
-| 7. **Audit** | Credentials, .env, .map files, package integrity check | Security report |
-| 8. **Report** | Structured final build report | Delivery |
+| Step | Action | Result |
+|:----:|--------|--------|
+| **1** | **Scan** — detect framework, language, dependencies, `.env` files | Project analysis |
+| **2** | **Intake** — report findings, ask 12 structured questions | User preferences |
+| **3** | **Analyze** — combine scan + answers + online research (if needed) | Strategy options |
+| **4** | **Recommend** — present best approach with reasoning + alternatives | Decision support |
+| **5** | **Confirm** — user selects, final build plan generated | Confirmed plan |
+| **6** | **Execute** — load sub-skill, run build commands | Installers / packages |
+| **7** | **Audit** — credentials, `.env`, `.map`, package integrity | Security report |
+| **8** | **Report** — structured final build report | Delivery |
+
+---
+
+## Key Advantages
+
+Packwise is more than a build script. It's a **complete packaging intelligence layer** that works across your entire stack.
+
+| Capability | What It Means |
+|------------|---------------|
+| **44 sub-skills** | Deep, platform-specific knowledge — not generic advice |
+| **20+ platforms** | Desktop, mobile, web, backend, AI/ML, CLI, plugins, embedded, cloud |
+| **Mandatory security** | Every build ends with a credential and integrity audit |
+| **Consultant workflow** | Recommend → confirm → execute, never auto-builds without approval |
+| **Version-verified** | Build commands checked against npm, PyPI, crates.io, official registries |
+| **CI/CD templates** | GitHub Actions and GitLab CI configs included in every sub-skill |
+| **Cross-tool support** | Works with Claude Code, OpenCode, Cursor, Codex CLI, and more |
+
+---
+
+## Installation
+
+### npm (Recommended)
+
+```bash
+npm install -g packwise-skills
+```
+
+Then invoke in your AI agent:
+
+```
+> package my Electron app for Windows
+```
+
+<details>
+<summary><strong>Git clone</strong> — install from source</summary>
+
+```bash
+# User-level (all projects)
+cd ~/.claude/
+git clone https://github.com/Thomas520TOM/packwise-skills.git skills/packwise
+
+# Project-level (this project only)
+cd your-project/
+mkdir -p .claude/skills/
+git clone https://github.com/Thomas520TOM/packwise-skills.git .claude/skills/packwise
+```
+</details>
+
+<details>
+<summary><strong>Curl one-liner</strong> — install with a single command</summary>
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Thomas520TOM/packwise-skills/main/install.sh | bash
+```
+</details>
+
+<details>
+<summary><strong>Other AI tools</strong> — OpenCode, Cursor, Hermes, Codex CLI, WorkBuddy</summary>
+
+**OpenCode** — copy to `.opencode/skills/packwise/` and reference in prompts:
+```bash
+mkdir -p .opencode/skills/packwise/
+cp skill.md audit.md .opencode/skills/packwise/
+cp -r sub-skills/ .opencode/skills/packwise/
+```
+
+**Cursor** — add to `.cursor/skills/` or reference via `@packwise` in prompts.
+
+**Hermes / LangChain Agents** — add to `hermes.config.yaml`:
+```yaml
+skills:
+  - path: /path/to/packwise/
+    name: packwise
+```
+
+**Codex CLI** — copy to project root as `PACKWISE.md` (auto-read as context).
+
+**WorkBuddy** — copy to `~/.workbuddy/skills/` or use `/project:packwise`.
+
+**Any LLM agent** — copy `skill.md` + `sub-skills/` to your project and prompt:
+```
+Read skills/package-skill.md and help me package this project
+```
+
+Full instructions: [INSTALL.md](INSTALL.md)
+</details>
 
 ---
 
 ## Supported Platforms
 
 | Category | Frameworks | Build Verified |
-|----------|-----------|----------------|
-| **Desktop** | Electron 43, Tauri 2.11, Qt, Flutter Desktop, Pake, Neutralinojs | Electron ✅, Tauri ✅ |
+|----------|-----------|:--------------:|
+| **Desktop** | Electron 43, Tauri 2.11, Qt, Flutter Desktop, Pake, Neutralinojs | Electron, Tauri |
 | **Mobile** | Android (Kotlin), iOS/iPadOS, HarmonyOS NEXT, Flutter 3.44, React Native 0.86, Capacitor 8 | — |
-| **Web** | Vite 8, Next.js 16, PWA, Serverless/Edge, Monorepo, WebAssembly | Vite ✅, Next.js ✅ |
-| **Backend** | Node.js 26, Python 3.12, Go 1.26, Rust, Java/Spring Boot 3.5, PHP/Laravel | Node ✅, Python ✅, Rust ✅, Java ✅ |
+| **Web** | Vite 8, Next.js 16, PWA, Serverless/Edge, Monorepo, WebAssembly | Vite, Next.js |
+| **Backend** | Node.js 26, Python 3.12, Go 1.26, Rust, Java/Spring Boot 3.5, PHP/Laravel | Node, Python, Rust, Java |
 | **AI/ML** | PyTorch, TensorFlow, ONNX Runtime, Ollama, llama.cpp, vLLM | — |
-| **CLI/SDK** | PyInstaller, Nuitka, npm/PyPI/crates.io publishing | PyInstaller ✅ |
+| **CLI/SDK** | PyInstaller, Nuitka, npm/PyPI/crates.io publishing | PyInstaller |
 | **Plugins** | Chrome/Firefox Extensions, VS Code, JetBrains | — |
 | **Embedded** | ESP32, STM32, ROS/ROS2, Car Infotainment | — |
 | **Cloud** | Docker, Kubernetes, CI/CD (GitHub Actions) | — |
 | **Wearables** | watchOS, Wear OS, Galaxy Watch | — |
 
-> ✅ = Build tested on real projects. — = Documentation based on official sources (not build-tested in current env).
+> Checked = build tested on real projects. — = documentation verified against official sources.
 
 ---
 
@@ -242,7 +179,7 @@ skill.md (Main Orchestrator)
 │
 ├─ Step 1: Project Scan ─────── Detect framework, language, deps, env
 │
-├─ Step 2: Intake ───────────── Ask 12 questions (users, platform, arch...)
+├─ Step 2: Intake ───────────── Ask 12 questions (platform, arch, signing...)
 │  ├─ Part A: Project Summary    ← scan results displayed
 │  ├─ Part B: Questions          ← interactive options with defaults
 │  └─ Part C: Confirmation       ← summary table for user approval
@@ -275,7 +212,7 @@ skill.md (Main Orchestrator)
 
 ## Security Model
 
-Packwise enforces security at every stage:
+Packwise enforces security at every stage — no build completes without a clean audit.
 
 | Stage | Check |
 |-------|-------|
@@ -288,19 +225,19 @@ Packwise enforces security at every stage:
 
 ## What's Inside
 
-### 44 Sub-Skills Covering Every Major Platform
+### 44 Sub-Skills — Every Major Platform Covered
 
 Each sub-skill contains:
 - **Version-verified** build commands (checked against official registries)
 - **Step-by-step** packaging workflows with copy-paste examples
-- **Common pitfalls** with solutions (from real build testing)
+- **Common pitfalls** table with solutions (from real build testing)
 - **CI/CD** configuration templates (GitHub Actions, GitLab CI)
 - **Security** best practices specific to the platform
 
-### Tested Framework Versions (July 2026)
+### Tested Framework Versions
 
 | Framework | Version | Verified |
-|-----------|---------|----------|
+|-----------|:-------:|:--------:|
 | Electron | 43.x | ✅ |
 | Tauri | 2.11.x | ✅ |
 | Vite | 8.1.3 | ✅ |
@@ -318,37 +255,44 @@ Each sub-skill contains:
 
 ## Contributing
 
-```bash
-# Fork and clone
-git clone https://github.com/YOUR_USER/packwise.git
-cd packwise
+Contributions are welcome. Before submitting, please:
 
-# Make changes to skill.md or sub-skills/
-# Test by installing in your AI agent and running a packaging workflow
-
-# Submit PR
-git checkout -b feat/my-improvement
-git commit -m "feat: add [framework] support"
-git push origin feat/my-improvement
-```
-
-**Rules:**
-1. All instructions in **English** only
-2. Verify versions against **official registries** (npm, PyPI, GitHub)
-3. Include **Common Pitfalls** table for each new sub-skill
+1. Write all instructions in **English** only
+2. Verify framework versions against **official registries** (npm, PyPI, GitHub Releases)
+3. Include a **Common Pitfalls** table in every new sub-skill
 4. Test build commands when possible
 5. Never commit secrets, API keys, or credentials
+
+```bash
+git clone https://github.com/YOUR_USER/packwise-skills.git
+cd packwise-skills
+git checkout -b feat/my-improvement
+# edit skill.md or sub-skills/
+git commit -m "feat: add [framework] support"
+git push origin feat/my-improvement
+# open a PR against main
+```
 
 ---
 
 ## License
 
-MIT — use it, fork it, improve it.
+<div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the [MIT License](LICENSE).
+
+</div>
 
 ---
 
-<p align="center">
+<div align="center">
   Built with care for the AI-assisted development community.
-  <br>
-  <a href="https://github.com/Thomas520TOM/AI-packwise-skill">GitHub</a> · <a href="https://github.com/Thomas520TOM/AI-packwise-skill/issues">Issues</a> · <a href="https://github.com/Thomas520TOM/AI-packwise-skill/blob/main/INSTALL.md">Install Guide</a>
-</p>
+  <br><br>
+  <a href="https://github.com/Thomas520TOM/packwise-skills">GitHub</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/issues">Issues</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/INSTALL.md">Install Guide</a>
+  <br><br>
+  <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=flat-square" alt="Buy Me a Coffee"></a>
+  &nbsp;
+  <a href="https://github.com/sponsors/Thomas520TOM" target="_blank"><img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=flat-square" alt="GitHub Sponsors"></a>
+</div>
