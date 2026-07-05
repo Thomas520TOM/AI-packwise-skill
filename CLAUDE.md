@@ -23,3 +23,14 @@ When the user asks to **build, package, distribute, or ship** any software proje
 - **Recommend with reasoning** — explain WHY, not just WHAT
 - **Security is mandatory** — always check for .env files, credentials, source maps
 - **Confirm before executing** — never build without user approval
+
+## CLI commands
+
+```bash
+npx packwise-skills                    # Install all skills
+npx packwise-skills --only desktop,mobile  # Selective install
+npx packwise-skills install            # Install / reinstall
+npx packwise-skills uninstall          # Remove skills
+npx packwise-skills list               # Show installed agents
+npx packwise-skills update             # Update to latest version
+```

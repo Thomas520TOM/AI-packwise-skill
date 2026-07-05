@@ -21,3 +21,14 @@ This project contains a universal build & packaging skill set for AI-assisted de
 - Security checks are mandatory (credentials, .env, source maps)
 - If unsure about a platform, check `sub-skills/` for the matching guide
 - If no sub-skill matches, research online (time-boxed to 2-3 min)
+
+## CLI commands
+
+```bash
+npx packwise-skills                    # Install all skills
+npx packwise-skills --only desktop,mobile  # Selective install
+npx packwise-skills install            # Install / reinstall
+npx packwise-skills uninstall          # Remove skills
+npx packwise-skills list               # Show installed agents
+npx packwise-skills update             # Update to latest version
+```
