@@ -4,25 +4,25 @@
 
 <p align="center">
   <a href="https://github.com/Thomas520TOM/packwise-skills/commits/main">
-    <img src="https://img.shields.io/github/last-commit/Thomas520TOM/packwise-skills?style=for-the-badge&logo=github" alt="last commit">
+    <img src="https://img.shields.io/github/last-commit/Thomas520TOM/packwise-skills?style=flat-square&logo=github" alt="last commit">
   </a>
   <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&logo=github" alt="license">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&logo=github" alt="license">
   </a>
   <a href="https://github.com/Thomas520TOM/packwise-skills/tree/main/sub-skills">
-    <img src="https://img.shields.io/badge/skills-44-brightgreen?style=for-the-badge" alt="skills">
+    <img src="https://img.shields.io/badge/skills-44-brightgreen?style=flat-square" alt="skills">
   </a>
   <a href="#supported-platforms">
-    <img src="https://img.shields.io/badge/platforms-20%2B-orange?style=for-the-badge" alt="platforms">
+    <img src="https://img.shields.io/badge/platforms-20%2B-orange?style=flat-square" alt="platforms">
   </a>
   <a href="#supported-platforms">
-    <img src="https://img.shields.io/badge/frameworks-40%2B-purple?style=for-the-badge" alt="frameworks">
+    <img src="https://img.shields.io/badge/frameworks-40%2B-purple?style=flat-square" alt="frameworks">
   </a>
   <a href="#tested-framework-versions">
-    <img src="https://img.shields.io/badge/tested-10-success?style=for-the-badge" alt="tested">
+    <img src="https://img.shields.io/badge/tested-10-success?style=flat-square" alt="tested">
   </a>
   <a href="#installation">
-    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=for-the-badge" alt="works with">
+    <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20OpenCode%20%7C%20Cursor-yellow?style=flat-square" alt="works with">
   </a>
 </p>
 <p align="center">
@@ -290,7 +290,7 @@ git push origin feat/my-improvement
 
 <div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
 
 This project is licensed under the [MIT License](LICENSE).
 
@@ -304,14 +304,14 @@ This project is licensed under the [MIT License](LICENSE).
   <a href="https://github.com/Thomas520TOM/packwise-skills">GitHub</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/issues">Issues</a> · <a href="https://github.com/Thomas520TOM/packwise-skills/blob/main/INSTALL.md">Install Guide</a>
   <br><br>
   <a href="https://github.com/Thomas520TOM/packwise-skills">
-    <img src="https://img.shields.io/badge/🤖%20built%20for-Claude%20Code-black?style=for-the-badge" alt="built for Claude Code">
+    <img src="https://img.shields.io/badge/🤖%20built%20for-Claude%20Code-black?style=flat-square" alt="built for Claude Code">
   </a>
   &nbsp;
   <a href="https://buymeacoffee.com/Thomas520TOM" target="_blank">
-    <img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=for-the-badge" alt="Buy Me a Coffee">
+    <img src="https://img.shields.io/badge/☕%20Buy%20Me%20a%20Coffee-support-orange?style=flat-square" alt="Buy Me a Coffee">
   </a>
   &nbsp;
   <a href="https://github.com/sponsors/Thomas520TOM" target="_blank">
-    <img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=for-the-badge" alt="GitHub Sponsors">
+    <img src="https://img.shields.io/badge/❤️%20GitHub%20Sponsors-support-pink?style=flat-square" alt="GitHub Sponsors">
   </a>
 </div>
