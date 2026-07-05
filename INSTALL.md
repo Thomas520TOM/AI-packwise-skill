@@ -7,7 +7,7 @@ One skill pack. Install once, use everywhere.
 ## Quick Start (30 seconds)
 
 ```bash
-npx @anthropic-ai/packwise
+npx packwise-skills
 ```
 
 This auto-detects your AI agent and installs to the correct location.
@@ -22,16 +22,16 @@ Works with Claude Code, Cursor, Windsurf, OpenCode, Zed, and any Node.js-based a
 
 ```bash
 # Auto-detect agent and install
-npx @anthropic-ai/packwise
+npx packwise-skills
 
 # Or install globally
-npm install -g @anthropic-ai/packwise
+npm install -g packwise-skills
 
 # Verify
-npx @anthropic-ai/packwise list
+npx packwise-skills list
 
 # Uninstall
-npx @anthropic-ai/packwise uninstall
+npx packwise-skills uninstall
 ```
 
 **What it does:**
@@ -45,7 +45,7 @@ npx @anthropic-ai/packwise uninstall
 ```bash
 # Clone to a shared location
 cd ~/.ai-skills/
-git clone https://github.com/Thomas520TOM/AI-packwise-skill.git packwise
+git clone https://github.com/Thomas520TOM/packwise-skills.git packwise
 ```
 
 Then reference it in your agent:
@@ -60,9 +60,9 @@ For agent-specific or isolated installations:
 ```bash
 # Copy to your project
 mkdir -p skills/packwise
-cp -r /path/to/AI-packwise-skill/skill.md skills/packwise/
-cp -r /path/to/AI-packwise-skill/audit.md skills/packwise/
-cp -r /path/to/AI-packwise-skill/sub-skills/ skills/packwise/
+cp -r /path/to/packwise-skills/skill.md skills/packwise/
+cp -r /path/to/packwise-skills/audit.md skills/packwise/
+cp -r /path/to/packwise-skills/sub-skills/ skills/packwise/
 ```
 
 ### Method 4: Claude Code Slash Command
@@ -121,7 +121,7 @@ sub-skills/     ← 44 platform-specific build guides
 
 ```bash
 # npm
-npx @anthropic-ai/packwise uninstall
+npx packwise-skills uninstall
 
 # Manual: delete the packwise directory from your skills location
 rm -rf ~/.claude/skills/packwise/      # Claude Code user-level
@@ -133,9 +133,9 @@ rm -rf skills/packwise/                # Generic project-level
 
 ## Troubleshooting
 
-**"npx @anthropic-ai/packwise" not found?**
+**"npx packwise-skills" not found?**
 - Ensure Node.js >= 18 is installed
-- Try: `npm install -g @anthropic-ai/packwise` first
+- Try: `npm install -g packwise-skills` first
 
 **Skill not loading in agent?**
 - Verify the skill file is in the correct directory (see table above)
@@ -148,7 +148,7 @@ rm -rf skills/packwise/                # Generic project-level
 **Want to update?**
 ```bash
 # npm
-npm update -g @anthropic-ai/packwise
+npm update -g packwise-skills
 
 # git
 cd ~/.ai-skills/packwise && git pull
