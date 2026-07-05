@@ -214,10 +214,10 @@ Use `AskUserQuestion` tool with the following options:
 - **iOS 架构？**
   - 1. ⭐ ARM64 (all modern Apple devices, automatic) / 所有现代 Apple 设备，自动适配
 
-> All selected architecture packages will be output to the same target folder (Q13).
-> 所有选中的架构包将输出到同一目标文件夹（Q13）。
+> All selected architecture packages will be output to the same target folder (see output location in Step 6).
+> 所有选中的架构包将输出到同一目标文件夹（见 Step 6 输出位置）。
 
-**Q3c. Architecture output mode? / 架构输出模式？**
+**Q3c. Architecture output mode? / 架构输出模式？** (only ask when user selected 2+ architectures for a platform in Q3b / 仅当用户在 Q3b 中为某平台选择了 2 个以上架构时才询问)
 
 > This determines how multi-architecture builds are packaged. Based on your Q3b selections, here is what will be output:
 > 决定多架构构建如何打包。根据您在 Q3b 的选择，以下是输出预览：
@@ -311,11 +311,6 @@ Use `AskUserQuestion` tool with the following options:
 - 2. Custom branding → after selecting, describe in chat / 自定义品牌 → 选择后在聊天中描述需求（如自定义欢迎页、背景图、文字颜色等）
 - 3. Minimal / unbranded / 极简无品牌 — 无 logo、无自定义文字，纯功能性安装器
 
-**Q5. Logo/icon ready? / Logo 图标是否就绪？**
-- 1. ⭐ Yes, I have icons → after selecting, type file path in chat / 有图标 → 选择后在聊天中输入文件路径
-- 2. Need to generate → Recommend tool based on platform / 需要生成 → 根据平台推荐工具
-- 3. Use default → Not recommended for production / 使用默认 → 不建议用于正式发布
-
 **Q6. Source code protection (anti-reverse-engineering)? / 源码保护（防反编译）？**
 
 > This determines how hard it is for someone to decompile and read your source code from the packaged app.
@@ -336,16 +331,14 @@ Use `AskUserQuestion` tool with the following options:
 - 2. No signing (will show security warnings) / 不签名（将显示安全警告）
 - 3. Help me understand / 帮我了解需要什么
 
-**Q9. Auto-update? / 自动更新？**
-- 1. ⭐ Yes / 是
-- 2. No / 否
+**Q9. Auto-update and release type? / 自动更新与发布类型？**
+- 1. ⭐ First publish + auto-update / 首次发布 + 自动更新
+- 2. First publish, no auto-update / 首次发布，不自动更新
+- 3. Update existing app + auto-update / 更新已有应用 + 自动更新
+- 4. Update existing app, no auto-update / 更新已有应用，不自动更新
+- 5. Not sure → I'll guide you / 不确定 → 我来引导你
 
-**Q9b. First publish or update? / 首次发布还是更新？**
-- 1. ⭐ First publish — fresh release / 首次发布 — 全新发布
-- 2. Update — existing app with users / 更新 — 已有用户的应用
-- 3. Not sure → I'll guide you / 不确定 → 我来引导你
-
-**Q11. Any special requirements? / 特殊需求？**
+**Q10. Any special requirements? / 特殊需求？**
 - 1. ⭐ None / 无
 - 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
 
