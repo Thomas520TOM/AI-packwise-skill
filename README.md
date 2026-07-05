@@ -54,38 +54,64 @@ Most AI coding assistants treat build as an afterthought — they suggest a comm
 ```
 You:  > package my Electron app for Windows and macOS
 
+── Step 1: Scan ──
+
 AI:   Scan Results:
       - Framework: Electron 31 + React 18 + Express + SQLite
       - Language: TypeScript | Complexity: L2
-      Is this correct? [Correct / Add / Exclude / Correct]
+      - Dependencies: react, express, better-sqlite3, electron-store
+      Is this correct? [Correct / Add files / Exclude files / Correct]
 
 You:  Correct
 
-AI:   [Popup] Target users? → General consumers
-      [Popup] Platform? → Windows + macOS
-      [Popup] Architecture? → Win x64 | macOS Universal
-      ... (17 interactive questions via popups)
+── Step 2: Intake ──
+
+AI:   [Popup] Q1. Target users? → General consumers
+      [Popup] Q2. Distribution? → Website download
+      [Popup] Q3a. Desktop? → Windows + macOS
+      [Popup] Q3b. Mobile? → None
+      ... (18 questions via popups, 3-4 per call)
+
+── Step 4: Recommend ──
 
 AI:   RECOMMENDED: Electron 31 + electron-builder
+      Why: better-sqlite3 requires Node.js runtime, team has frontend experience
       Alternative A: Tauri (3-10MB, needs Rust rewrite)
       Which approach? [Recommended / Alt A / Alt B / Custom]
 
 You:  1
 
-AI:   FINAL BUILD PLAN | Reply 'yes' to start
+── Step 5: Confirm ──
+
+AI:   FINAL BUILD PLAN
+      App: MyApp v1.2.0 | Framework: Electron 31 + React 18
+      Platform: Windows x64 + macOS Universal
+      Signing: Windows EV + macOS Developer ID
+      Protection: ASAR bundling
+      Reply 'yes' to start.
 
 You:  yes
 
-AI:   [Popup] Logo? → /path/to/icon.png | Crop corners? → Yes
-      [Popup] Output? → ./release/
-      [Popup] Config changes: [1] Add electron-builder.yml [2] ...
+── Step 6: Prepare ──
+
+AI:   [Popup] Logo? → /path/to/icon.png
+      [Popup] Crop corners for installer icon? → Yes
+      [Popup] Output location? → ./release/
+      [Popup] Config changes:
+        [1] Add electron-builder.yml
+        [2] Add dependency: electron-builder
+        [3] Modify package.json → add build script
       [Popup] Approve? → Approve all
 
+── Step 7-8: Execute & Audit ──
+
 AI:   Building... Done
-      Audit: No credentials, no .env, no .map
-      Output:
-        MyApp-v1.0.0-windows-x64.exe
-        MyApp-v1.0.0-macos-universal.dmg
+      Audit: No credentials, no .env, no .map, package intact
+
+── Step 9: Report ──
+
+      MyApp-v1.0.0-windows-x64.exe
+      MyApp-v1.0.0-macos-universal.dmg
 ```
 
 ---
