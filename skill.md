@@ -345,13 +345,6 @@ Use `AskUserQuestion` tool with the following options:
 - 2. Update — existing app with users / 更新 — 已有用户的应用
 - 3. Not sure → I'll guide you / 不确定 → 我来引导你
 
-**Q10. Output location? / 输出位置？**
-- 1. ⭐ `./release/` (default / 默认)
-- 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
-
-> When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
-> 当多架构分开输出时（Q3c），文件名自动包含平台和架构信息。
-
 **Q11. Any special requirements? / 特殊需求？**
 - 1. ⭐ None / 无
 - 2. Custom → after selecting, type in chat / 自定义 → 选择后在聊天中输入
@@ -509,11 +502,17 @@ Based on the confirmed build plan and the selected sub-skill, scan for:
 
 Before presenting the modification plan, the LLM MUST ask the following questions:
 
-1. **Logo / Icon** — Ask the user to provide the logo file path
-   - Also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon?"*
+1. **Logo / Icon / Logo 图标** — Ask the user to provide the logo file path
+   - Also ask: *"Do you want me to intelligently crop and round the corners of your logo for the installer/shortcut icon? / 是否需要智能裁切圆角？"*
    - If no logo is provided, warn that default/placeholder icons will be used
 
-> **Note**: Output location (Q10) and encryption/protection level (Q6) were already confirmed in Step 2. Use those answers directly — do NOT ask again.
+2. **Output location / 输出位置** — Where should the final build artifacts be placed?
+   - Default: `./release/` (or `./dist/` depending on framework / 默认输出目录)
+   - Let the user specify a custom path if needed
+   - When multiple architectures are output separately (Q3c), filenames automatically include platform and architecture: `[AppName]-v[Version]-[OS]-[Arch].[ext]`
+
+> **Note**: Encryption/protection level (Q6) was already confirmed in Step 2. Use that answer directly — do NOT ask again.
+> **注意**：加密/保护等级（Q6）已在 Step 2 确认，直接使用，不要重复询问。
 
 #### 6b. Present Modification Plan
 

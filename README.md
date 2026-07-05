@@ -56,7 +56,7 @@ A 9-step consultant workflow — the same process a human build engineer follows
 | Step | Action | Result |
 |:----:|--------|--------|
 | **1** | **Scan** — detect framework, language, dependencies, `.env` files | Project analysis |
-| **2** | **Intake** — build overview confirmation, then 17 structured questions | User preferences |
+| **2** | **Intake** — build overview confirmation, then 16 structured questions | User preferences |
 | **3** | **Analyze** — combine scan + answers + online research (if needed) | Strategy options |
 | **4** | **Recommend** — present best approach with reasoning + alternatives | Decision support |
 | **5** | **Confirm** — user selects, final build plan generated | Confirmed plan |
@@ -246,7 +246,7 @@ skill.md (Main Orchestrator)
 │
 ├─ 5. Confirm ───────── User selects → final build plan
 │
-├─ 6. Prepare ───────── Detect config gaps → propose fixes → user approves
+├─ 6. Prepare ───────── Logo + output location → detect config gaps → user approves
 │
 ├─ 7. Execute ───────── Load sub-skill → run platform-specific build
 │  │
